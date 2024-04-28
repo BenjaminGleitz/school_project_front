@@ -1,15 +1,16 @@
 import React from "react";
 import useGetAllEvents from "../../services/getEvent/UseGetAllEvents.tsx";
+import EventCard from "./EventCard.tsx";
+import "./css/eventsList.css";
 
 const EventsList: React.FC = () => {
     const { events } = useGetAllEvents();
 
     return (
-        <div>
-            <h1>Events</h1>
+        <div className="events-list">
             <ul>
                 {events.map(event => (
-                    <li key={event.id}>{event.title}</li>
+                    <EventCard key={event.id} event={event} />
                 ))}
             </ul>
         </div>
