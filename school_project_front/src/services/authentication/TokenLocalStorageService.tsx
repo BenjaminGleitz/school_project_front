@@ -1,3 +1,5 @@
+import {jwtDecode} from "jwt-decode";
+
 const TOKEN_KEY = 'authToken';
 
 export const getToken = (): string | null => {
@@ -10,4 +12,13 @@ export const setToken = (token: string): void => {
 
 export const removeToken = (): void => {
     localStorage.removeItem(TOKEN_KEY);
+};
+
+export const getUserId = (): number | null => {
+    const token = getToken();
+    if (!token) {
+        return null;
+    }
+    const decodedToken: any = jwtDecode(token);
+    return decodedToken.id;
 };
