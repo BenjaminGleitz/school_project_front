@@ -1,30 +1,30 @@
 import {useEffect, useState} from "react";
 import axios from 'axios';
-import Event from "../../types/Event.tsx";
+import Category from "../../types/Category.tsx";
 import {getToken} from "../authentication/TokenLocalStorageService.tsx";
 
-const useGetAllEvents = () => {
-    const [events, setEvents] = useState<Event[]>([]);
+const useGetAllCategories = () => {
+    const [categories, setCategories] = useState<Category[]>([]);
     const token = getToken();
 
-    const getEvents = async () => {
+    const getCategories = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/event/', {
+            const response = await axios.get('http://127.0.0.1:8000/api/category/', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setEvents(response.data);
+            setCategories(response.data);
         } catch (error) {
             console.error(error);
         }
     };
 
     useEffect(() => {
-        getEvents();
+        getCategories();
     }, []);
 
-    return { events };
+    return { categories };
 }
 
-export default useGetAllEvents;
+export default useGetAllCategories;

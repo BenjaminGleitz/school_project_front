@@ -1,0 +1,42 @@
+.event-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    margin: 1em;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    box-shadow: 0 0 10px #000;
+}
+
+.event-card-main-info {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.event-card-details {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.event-card-details-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.event-card-details-location {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}

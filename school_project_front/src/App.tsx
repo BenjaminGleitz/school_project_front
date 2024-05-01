@@ -11,12 +11,10 @@ const App: React.FC = () => {
             <BrowserRouter>
                 <div id="top"></div>
                 <Navbar/>
-                <section className='content' id='content'>
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/login" element={<Login/>}/>
                     </Routes>
-                </section>
             </BrowserRouter>
         </>
     );
