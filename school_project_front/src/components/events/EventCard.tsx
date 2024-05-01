@@ -8,7 +8,7 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false); // État pour suivre si le modal est ouvert
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
         setIsModalOpen(true); // Fonction pour ouvrir le modal
