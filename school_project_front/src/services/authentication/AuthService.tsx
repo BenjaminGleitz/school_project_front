@@ -5,7 +5,8 @@ class AuthService {
     private static instance: AuthService;
     private tokenKey = "authToken";
 
-    private constructor() {}
+    private constructor() {
+    }
 
     public static getInstance(): AuthService {
         if (!AuthService.instance) {
@@ -13,6 +14,26 @@ class AuthService {
         }
         return AuthService.instance;
     }
+
+    public register(email: string, password: string, firstname: string, lastname: string, favoriteCityId: number | null): Promise<void> {
+        console.log(favoriteCityId)
+        return axios
+            .post("http://127.0.0.1:8000/userRegister", {
+                email: email,
+                password: password,
+                firstname: firstname,
+                lastname: lastname,
+                favoriteCity: favoriteCityId
+            })
+            .then((response) => {
+                console.log("User registered:", response);
+            })
+            .catch((error) => {
+                console.error("Registration failed:", error);
+                throw error; // Rejette la promesse pour gérer les erreurs dans les composants
+            });
+    }
+
 
     public login(email: string, password: string): Promise<void> {
         return axios
@@ -26,7 +47,7 @@ class AuthService {
             })
             .catch((error) => {
                 console.error("Login failed:", error);
-                throw error; // Rejette la promesse pour gérer les erreurs dans les composants
+                throw error;
             });
     }
 
