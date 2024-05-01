@@ -18,7 +18,7 @@ const EventsList: React.FC = () => {
     const filteredEvents = events.filter(event =>
         (!selectedCategory || event.category.title === selectedCategory) &&
         (!selectedDate || new Date(event.start_at) >= new Date(selectedDate)) &&
-        (!selectedCountry || event.country.name === selectedCountry) &&
+        (!selectedCountry || event.city.country.name === selectedCountry) &&
         (!selectedCity || event.city.name === selectedCity)
     );
 

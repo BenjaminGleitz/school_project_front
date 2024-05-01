@@ -1,6 +1,7 @@
+// EventCard.tsx
 import React, { useState } from "react";
 import Event from "../../types/Event";
-import EventModal from "./EventModal"; // Importez le composant du modal
+import EventModal from "./EventModal";
 import "./css/eventCard.css";
 
 interface EventCardProps {
@@ -10,17 +11,7 @@ interface EventCardProps {
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const openModal = () => {
-        setIsModalOpen(true); // Fonction pour ouvrir le modal
-    };
-
-    const closeModal = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation(); // Arrête la propagation de l'événement de clic
-        setIsModalOpen(false); // Ferme le modal
-    };
-
-
-
+    // Fonction pour formater la date de l'événement
     const formatDate = (dateString: string): string => {
         const options: Intl.DateTimeFormatOptions = {
             year: "numeric",
@@ -29,6 +20,16 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         };
 
         return new Date(dateString).toLocaleDateString("fr-FR", options);
+    };
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        console.log("close modal");
+        setIsModalOpen(false);
     };
 
     return (
@@ -43,11 +44,11 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
                     <p>{event.participantLimit}</p>
                 </div>
                 <div className="event-card-details-location">
-                    <p>{event.city.name}</p>
-                    <p>{event.country.name}</p>
+                <p>{event.city.name}</p>
+                    <p>{event.city.country.name}</p>
                 </div>
             </div>
-            {isModalOpen && <EventModal event={event} closeModal={closeModal}/>}
+            {isModalOpen && <EventModal eventId={event.id} closeModal={closeModal}/>}
         </div>
     );
 }
