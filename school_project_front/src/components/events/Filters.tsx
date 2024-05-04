@@ -13,22 +13,24 @@ interface FiltersProps {
     selectedCity: string | null;
     setSelectedCity: (value: string | null) => void;
     handleReset: () => void;
+    handleUpdateFilters: () => void;
 }
 
 const Filters: React.FC<FiltersProps> = ({
-    categories,
-    countries,
-    cities,
-    selectedCategory,
-    setSelectedCategory,
-    selectedDate,
-    setSelectedDate,
-    selectedCountry,
-    setSelectedCountry,
-    selectedCity,
-    setSelectedCity,
-    handleReset
-}) => {
+                                             categories,
+                                             countries,
+                                             cities,
+                                             selectedCategory,
+                                             setSelectedCategory,
+                                             selectedDate,
+                                             setSelectedDate,
+                                             selectedCountry,
+                                             setSelectedCountry,
+                                             selectedCity,
+                                             setSelectedCity,
+                                             handleReset,
+                                             handleUpdateFilters
+                                         }) => {
     return (
         <div className="filters">
             <div className="category-filter">
@@ -80,7 +82,11 @@ const Filters: React.FC<FiltersProps> = ({
                 </div>
             )}
             <div className="reset-button">
-                <button onClick={handleReset}>Réinitialiser</button>
+                <button onClick={handleReset}>Reset filter</button>
+            </div>
+            <div className="update-button">
+                {/* Bouton pour mettre à jour les options de filtre */}
+                <button onClick={handleUpdateFilters}>Search in my favorite city</button>
             </div>
         </div>
     );
