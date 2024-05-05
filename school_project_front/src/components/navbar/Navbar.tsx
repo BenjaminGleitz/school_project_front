@@ -23,6 +23,14 @@ const Navbar: React.FC = () => {
         window.location.href = "/";
     }
 
+    const goToMyEvents = () => {
+        window.location.href = "/my-events";
+    }
+
+    const goToMyParticipation = () => {
+        window.location.href = "/my-participation";
+    }
+
     return (
         <nav className="navbar">
             <div className="navbar-title">
@@ -40,6 +48,8 @@ const Navbar: React.FC = () => {
                 <div className="overlay">
                     <button onClick={() => goToHome()}>Home</button>
                     <button onClick={() => goToProfile()}>My Profile</button>
+                    <button onClick={() => goToMyEvents()}>My Events</button>
+                    <button onClick={() => goToMyParticipation()}>My Participation</button>
                     <button onClick={() => logOut()}>Log Out</button>
                     <button className="close-menu-btn" onClick={() => setShowOverlay(false)}>Fermer</button>
                 </div>

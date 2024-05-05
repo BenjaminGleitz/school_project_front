@@ -5,18 +5,21 @@ import "./css/eventsList.css";
 import Filters from "./Filters.tsx";
 
 const EventsList: React.FC = () => {
-    const { events } = useGetAllEvents();
+    const { events, loading } = useGetAllEvents();
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
     const [selectedCity, setSelectedCity] = useState<string | null>(null);
-
     const filteredEvents = events.filter(event =>
         (!selectedCategory || event.category.title === selectedCategory) &&
         (!selectedDate || new Date(event.start_at) >= new Date(selectedDate)) &&
         (!selectedCountry || event.city.country.name === selectedCountry) &&
         (!selectedCity || event.city.name === selectedCity)
     );
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="events-list">
