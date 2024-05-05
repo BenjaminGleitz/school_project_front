@@ -1,9 +1,11 @@
+// UpdateUserForm.tsx
 import React, { useState, useEffect } from "react";
 import useUpdateConnectedUser from "../../../services/getUser/useUpdateConnectedUser.tsx";
 import useGetAllCountries from "../../../services/getCountry/UseGetAllCountries.tsx";
 import User from "../../../types/User.tsx";
 import City from "../../../types/City.tsx";
 import { useUser } from "../../../contexts/UserContext.tsx";
+import Message from "../../messages/Message.tsx";
 
 interface FormErrors {
     firstname: string;
@@ -24,7 +26,7 @@ const UpdateUserForm: React.FC = () => {
         selectedCountry: "",
         selectedCity: ""
     });
-
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // État pour gérer l'affichage du message de succès
     const updateUser = useUpdateConnectedUser();
     const { countries } = useGetAllCountries();
     const currentUser = useUser();
@@ -38,16 +40,33 @@ const UpdateUserForm: React.FC = () => {
         }
     }, [currentUser]);
 
-    const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedCountry(parseInt(e.target.value) || "");
-        setSelectedCityObj(null);
-    };
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const isValid = validateForm();
 
-    const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const cityId = parseInt(e.target.value);
-        const selectedCountryObj = countries.find((country) => country.id === selectedCountry);
-        const city = selectedCountryObj?.cities.find((city) => city.id === cityId) || null;
-        setSelectedCityObj(city);
+        if (isValid) {
+            const updatedUserData: Partial<User> = {
+                firstname: firstname,
+                lastname: lastname,
+                favoriteCity: selectedCityObj
+            };
+
+            const updatedUser = await updateUser(updatedUserData);
+            if (updatedUser) {
+                setShowSuccessMessage(true);
+                setTimeout(() => {
+                    window.location.href = "/profile";
+                }, 3000);
+            } else {
+                setErrors({
+                    firstname: "",
+                    lastname: "",
+                    selectedCountry: "",
+                    selectedCity: "",
+                    general: "Erreur lors de la mise à jour."
+                });
+            }
+        }
     };
 
     const validateForm = () => {
@@ -82,35 +101,24 @@ const UpdateUserForm: React.FC = () => {
         return Object.values(newErrors).every((error) => error === "");
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const isValid = validateForm();
+    const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCountry(parseInt(e.target.value) || "");
+        setSelectedCityObj(null);
+    };
 
-        if (isValid) {
-            const updatedUserData: Partial<User> = {
-                firstname: firstname,
-                lastname: lastname,
-                favoriteCity: selectedCityObj
-            };
-
-            const updatedUser = await updateUser(updatedUserData);
-            if (updatedUser) {
-                // Redirection ou affichage du message de réussite
-            } else {
-                setErrors({
-                    firstname: "",
-                    lastname: "",
-                    selectedCountry: "",
-                    selectedCity: "",
-                    general: "Erreur lors de la mise à jour."
-                });
-            }
-        }
+    const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const cityId = parseInt(e.target.value);
+        const selectedCountryObj = countries.find((country) => country.id === selectedCountry);
+        const city = selectedCountryObj?.cities.find((city) => city.id === cityId) || null;
+        setSelectedCityObj(city);
     };
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
+                {showSuccessMessage && (
+                    <Message type="success" text="Profile updated successfully" />
+                )}
                 <div>
                     <label htmlFor="firstname">Prénom :</label>
                     <input

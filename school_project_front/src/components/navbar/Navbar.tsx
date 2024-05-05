@@ -3,7 +3,7 @@ import "./navbar.css";
 
 const Navbar: React.FC = () => {
     const [showNav, setShowNav] = useState(false);
-    const [showOverlay, setShowOverlay] = useState(false); // Nouvel état pour la page par-dessus
+    const [showOverlay, setShowOverlay] = useState(false);
 
     const toggleNav = () => {
         setShowNav(!showNav);
@@ -14,6 +14,14 @@ const Navbar: React.FC = () => {
         localStorage.removeItem("authToken");
         window.location.href = "/login";
     };
+
+    const goToProfile = () => {
+        window.location.href = "/profile";
+    }
+
+    const goToHome = () => {
+        window.location.href = "/";
+    }
 
     return (
         <nav className="navbar">
@@ -30,6 +38,8 @@ const Navbar: React.FC = () => {
             {/* Overlay */}
             {showOverlay && (
                 <div className="overlay">
+                    <button onClick={() => goToHome()}>Home</button>
+                    <button onClick={() => goToProfile()}>My Profile</button>
                     <button onClick={() => logOut()}>Log Out</button>
                     <button className="close-menu-btn" onClick={() => setShowOverlay(false)}>Fermer</button>
                 </div>

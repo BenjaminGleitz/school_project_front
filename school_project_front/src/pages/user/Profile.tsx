@@ -1,14 +1,32 @@
-// Profile.tsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
+import Message from "../../components/messages/Message.tsx";
 
 const Profile: React.FC = () => {
-    const currentUser = useUser(); // Utilisez le hook useUser pour récupérer l'utilisateur actuel
+    const currentUser = useUser();
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const successParam = queryParams.get('success');
+
+        // Check if success message is stored in localStorage
+        const storedSuccess = localStorage.getItem('updateSuccess');
+        if (successParam === 'true' || storedSuccess === 'true') {
+            setShowSuccessMessage(true);
+            // Clear success message from localStorage
+            localStorage.removeItem('updateSuccess');
+        }
+    }, [location.search]);
 
     return (
         <div>
             <h1>My Profile</h1>
+            {showSuccessMessage && (
+                <Message type="success" text="Profile updated successfully" />
+            )}
             {currentUser ? (
                 <>
                     <p>ID: {currentUser.id}</p>
