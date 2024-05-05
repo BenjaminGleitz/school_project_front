@@ -9,8 +9,10 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({ type, text }) => {
     return (
-        <div className={`message ${type}`}>
-            <p>{text}</p>
+        <div className={`overlay-message ${type === "success" ? "success" : "error"}`}>
+            <div className={`message ${type}`}>
+                <p>{text}</p>
+            </div>
         </div>
     );
 };

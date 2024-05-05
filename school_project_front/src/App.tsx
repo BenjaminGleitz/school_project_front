@@ -1,4 +1,3 @@
-// App.tsx
 import React from 'react';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
@@ -9,10 +8,11 @@ import Register from './pages/Register';
 import Profile from './pages/user/Profile';
 import UpdateUser from './pages/user/UpdateUser';
 import { UserProvider } from './contexts/UserContext';
+import MyEventsCreated from "./pages/user/EventsCreated.tsx";
 
 const App: React.FC = () => {
     return (
-        <UserProvider> {/* Enveloppez votre application avec UserProvider */}
+        <UserProvider>
             <BrowserRouter>
                 <div id="top"></div>
                 <Navbar />
@@ -22,6 +22,7 @@ const App: React.FC = () => {
                     <Route path="/register" element={<Register />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/profile/update" element={<UpdateUser />} />
+                    <Route path={"/my-events"} element={<MyEventsCreated />} />
                 </Routes>
             </BrowserRouter>
         </UserProvider>
