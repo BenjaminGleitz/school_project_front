@@ -1,9 +1,18 @@
-import React from "react";
+// MyEventsParticipation.tsx
+import React, { useEffect, useState } from "react";
 import EventCard from "../../components/events/EventCard";
-import useGetEventsParticipationByCurrentUser from "../../services/getEvent/useGetEventsParticipationByCurrentUser.tsx";
+import useGetEventsParticipationByCurrentUser from "../../services/getEvent/useGetEventsParticipationByCurrentUser";
+import Event from "../../types/Event";
 
 const MyEventsParticipation: React.FC = () => {
+    const [events, setEvents] = useState<Event[]>([]);
     const { eventsParticipation, loading } = useGetEventsParticipationByCurrentUser();
+
+    useEffect(() => {
+        setEvents(eventsParticipation);
+    }, [eventsParticipation]);
+
+    console.log(events);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -12,12 +21,12 @@ const MyEventsParticipation: React.FC = () => {
     return (
         <div className="my-events-created">
             <h2>My Participation to Events</h2>
-            {eventsParticipation.length === 0 ? (
+            {events.length === 0 ? (
                 <div>No events created yet.</div>
             ) : (
                 <div className="event-cards">
-                    {eventsParticipation.map((event) => (
-                        <EventCard key={event.id} event={event} />
+                    {events.map((event) => (
+                        <EventCard key={event.id} event={event} setEvents={setEvents} />
                     ))}
                 </div>
             )}

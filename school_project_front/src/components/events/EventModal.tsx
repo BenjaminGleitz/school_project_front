@@ -1,3 +1,4 @@
+// EventModal.tsx
 import React, { useEffect, useState } from "react";
 import "./css/eventModal.css";
 import useGetOneEvent from "../../services/getEvent/UseGetOneEvent.tsx";
@@ -10,9 +11,10 @@ import Message from "../messages/Message.tsx";
 interface EventModalProps {
     eventId: number;
     closeModal: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    setEvents?: React.Dispatch<React.SetStateAction<Event[]>>;
 }
 
-const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal }) => {
+const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents }) => {
     const [event, setEvent] = useState<Event | null>(null);
     const [isParticipant, setIsParticipant] = useState(false); // Indicateur pour savoir si l'utilisateur est un participant
     const [isCreator, setIsCreator] = useState(false); // Indicateur pour savoir si l'utilisateur est le créateur de l'événement
@@ -71,6 +73,9 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal }) => {
             await removeParticipantFromEvent(eventId);
             setIsParticipant(false);
             setMessage({ type: "success", text: "You have successfully left the event." });
+            if (setEvents) {
+                setEvents(prevEvents => prevEvents.filter(event => event.id !== eventId));
+            }
             setTimeout(() => {
                 setMessage(null);
             }, 3000);

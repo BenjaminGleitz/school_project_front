@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EventCard from "../../components/events/EventCard";
 import useGetEventsCreatedByCurrentUser from "../../services/getEvent/UseGetEventsCreatedByCurrentUser.tsx";
+import Event from "../../types/Event";
 
 const MyEventsCreated: React.FC = () => {
+    const [events, setEvents] = useState<Event[]>([]);
     const { eventsCreated, loading } = useGetEventsCreatedByCurrentUser();
+
+    useEffect(() => {
+        setEvents(eventsCreated);
+    }, [eventsCreated]);
+
+    console.log(events)
 
     if (loading) {
         return <div>Loading...</div>;
@@ -12,12 +20,12 @@ const MyEventsCreated: React.FC = () => {
     return (
         <div className="my-events-created">
             <h2>My Events Created</h2>
-            {eventsCreated.length === 0 ? (
+            {events.length === 0 ? (
                 <div>No events created yet.</div>
             ) : (
                 <div className="event-cards">
-                    {eventsCreated.map((event) => (
-                        <EventCard key={event.id} event={event} />
+                    {events.map((event) => (
+                        <EventCard key={event.id} event={event} setEvents={setEvents} />
                     ))}
                 </div>
             )}

@@ -6,9 +6,10 @@ import "./css/eventCard.css";
 
 interface EventCardProps {
     event: Event;
+    setEvents?: React.Dispatch<React.SetStateAction<Event[]>>;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, setEvents }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Fonction pour formater la date de l'événement
@@ -48,7 +49,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
                     <p>{event.city.country.name}</p>
                 </div>
             </div>
-            {isModalOpen && <EventModal eventId={event.id} closeModal={closeModal}/>}
+            {isModalOpen && <EventModal eventId={event.id} closeModal={closeModal} setEvents={setEvents} />}
         </div>
     );
 }
