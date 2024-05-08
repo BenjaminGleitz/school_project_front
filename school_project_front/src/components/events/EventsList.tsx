@@ -56,7 +56,7 @@ const EventsList: React.FC = () => {
             {showFilters && <Filters onFilterSubmit={handleFilterSubmit} />}
             <ul>
                 {filteredEvents.length === 0 ? (
-                    <div>No events created yet.</div>
+                    <div>No events available with your filter</div>
                 ) : (
                     <div className="event-cards">
                         {filteredEvents.map((event) => (
