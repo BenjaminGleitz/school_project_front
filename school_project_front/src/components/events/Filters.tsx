@@ -1,101 +1,72 @@
-import React, { useState, useEffect } from "react";
-import useGetAllCategories from "../../services/getCategory/useGetAllCategories.tsx";
+import React, { useState } from "react";
 import useGetAllCountries from "../../services/getCountry/UseGetAllCountries.tsx";
-import {useUser} from "../../contexts/UserContext.tsx";
+import useGetAllCategories from "../../services/getCategory/useGetAllCategories.tsx";
 
-interface FiltersProps {
-    setSelectedCategory: (value: string | null) => void;
-    setSelectedDate: (value: string | null) => void;
-    setSelectedCountry: (value: string | null) => void;
-    setSelectedCity: (value: string | null) => void;
+interface FilterValues {
+    country: string;
+    city: string | undefined;
+    category: string | undefined;
+    date: string | undefined;
 }
 
-const Filters: React.FC<FiltersProps> = ({
-                                             setSelectedCategory,
-                                             setSelectedDate,
-                                             setSelectedCountry,
-                                             setSelectedCity,
-                                         }) => {
-    const { categories } = useGetAllCategories();
-    const { countries } = useGetAllCountries();
-    const [selectedCategory, setSelectedCategoryLocal] = useState<string | null>(null);
-    const [selectedDate, setSelectedDateLocal] = useState<string | null>(null);
-    const [selectedCountry, setSelectedCountryLocal] = useState<string | null>(null);
-    const [selectedCity, setSelectedCityLocal] = useState<string | null>(null);
-    const [cities, setCities] = useState<string[]>([]);
-    const currentUser = useUser();
+interface FiltersProps {
+    onFilterSubmit: (filterValues: FilterValues) => void;
+}
 
-    useEffect(() => {
-        if (selectedCountry) {
-            const selectedCountryObj = countries.find(country => country.name === selectedCountry);
-            if (selectedCountryObj) {
-                setCities(selectedCountryObj.cities.map(city => city.name));
-            } else {
-                setCities([]);
-            }
+const Filters: React.FC<FiltersProps> = ({ onFilterSubmit }) => {
+    const { countries } = useGetAllCountries();
+    const { categories } = useGetAllCategories();
+    const [cities, setCities] = useState<string[]>([]);
+    const [selectedCountry, setSelectedCountry] = useState<string>("");
+    const [selectedCity, setSelectedCity] = useState<string>("");
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const [selectedDate, setSelectedDate] = useState<string>("");
+
+    const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const countryName = event.target.value;
+        setSelectedCountry(countryName);
+        // Filtrer les villes pour le pays sélectionné
+        const selectedCountryObj = countries.find(country => country.name === countryName);
+        if (selectedCountryObj) {
+            setCities(selectedCountryObj.cities.map(city => city.name));
         } else {
             setCities([]);
         }
-    }, [selectedCountry, countries]);
-
-    const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedCategoryLocal(e.target.value);
-        setSelectedCategory(e.target.value);
     };
 
-    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedDateLocal(e.target.value);
-        setSelectedDate(e.target.value);
-    };
+    const handleSubmit = () => {
+        // Créer un objet FilterValues avec les valeurs sélectionnées
+        const filterValues: FilterValues = {
+            country: selectedCountry,
+            city: selectedCity !== "" ? selectedCity : undefined, // Ne pas inclure si non sélectionné
+            category: selectedCategory !== "" ? selectedCategory : undefined, // Ne pas inclure si non sélectionné
+            date: selectedDate !== "" ? selectedDate : undefined // Ne pas inclure si non sélectionné
+        };
 
-    const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedCountryLocal(e.target.value);
-        setSelectedCountry(e.target.value);
-    };
-
-    const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedCityLocal(e.target.value);
-        setSelectedCity(e.target.value);
+        onFilterSubmit(filterValues);
     };
 
     const handleReset = () => {
-        setSelectedCategory(null);
-        setSelectedDate(null);
-        setSelectedCountry(null);
-        setSelectedCity(null);
-    };
+        // Réinitialiser les valeurs des filtres
+        setSelectedCountry("");
+        setSelectedCity("");
+        setSelectedCategory("");
+        setSelectedDate("");
 
-    const handleSearchFavoriteCity = () => {
-        if (currentUser && currentUser.favoriteCity) {
-            setSelectedCountry(currentUser.favoriteCity.country.name);
-            setSelectedCity(currentUser.favoriteCity.name);
-            setSelectedCountryLocal(currentUser.favoriteCity.country.name);
-            setSelectedCityLocal(currentUser.favoriteCity.name);
-        }
+        // Créer un objet FilterValues avec les valeurs par défaut
+        const defaultFilterValues: FilterValues = {
+            country: "",
+            city: undefined,
+            category: undefined,
+            date: undefined
+        };
+
+        // Appeler onFilterSubmit avec les valeurs par défaut
+        onFilterSubmit(defaultFilterValues);
     };
 
     return (
         <div className="filters">
-            <div className="category-filter">
-                <select
-                    value={selectedCategory || ""}
-                    onChange={handleCategoryChange}
-                >
-                    <option value="">All Categories</option>
-                    {categories.map((category) => (
-                        <option key={category.id} value={category.title}>
-                            {category.title}
-                        </option>
-                    ))}
-                </select>
-            </div>
-            <div className="date-filter">
-                <input
-                    type="date"
-                    value={selectedDate || ""}
-                    onChange={handleDateChange}
-                />
-            </div>
             <div className="country-filter">
                 <select
                     value={selectedCountry || ""}
@@ -113,7 +84,7 @@ const Filters: React.FC<FiltersProps> = ({
                 <div className="city-filter">
                     <select
                         value={selectedCity || ""}
-                        onChange={handleCityChange}
+                        onChange={(e) => setSelectedCity(e.target.value)}
                     >
                         <option value="">All Cities</option>
                         {cities.map((city) => (
@@ -124,11 +95,32 @@ const Filters: React.FC<FiltersProps> = ({
                     </select>
                 </div>
             )}
+            <div className="category-filter">
+                <select
+                    value={selectedCategory || ""}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                    <option value="">All Categories</option>
+                    {categories.map((category) => (
+                        <option key={category.id} value={category.title}>
+                            {category.title}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <div className="date-filter">
+                <input
+                    type="date"
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    placeholder="Date"
+                />
+            </div>
+            <div className="submit-button">
+                <button onClick={handleSubmit}>Submit filter</button>
+            </div>
             <div className="reset-button">
                 <button onClick={handleReset}>Reset filter</button>
-            </div>
-            <div className="search-favorite-button">
-                <button onClick={handleSearchFavoriteCity}>Search in my favorite city</button>
             </div>
         </div>
     );
