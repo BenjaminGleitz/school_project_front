@@ -51,6 +51,20 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents 
         fetchEvent();
     }, [eventId]);
 
+    // Fonction pour formater la date de l'événement
+    const formatDate = (dateString: string): string => {
+        const options: Intl.DateTimeFormatOptions = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            timeZone: "UTC"
+        };
+
+        return new Date(dateString).toLocaleString("fr-FR", options);
+    };
+
     const handleJoinEvent = async () => {
         try {
             await addParticipantToEvent(eventId);
@@ -98,11 +112,15 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents 
                         <p>Event id: {event.id}</p>
                         <p>Title: {event.title}</p>
                         <p>Description: {event.description}</p>
-                        <p>Start at: {event.start_at}</p>
+                        <p>commence le : {formatDate(event.start_at)}</p>
                         <p>Participant limit: {event.participantLimit !== null && event.participantLimit}</p>
                         <p>Category: {event.category.title}</p>
                         <p>City: {event.city.name}</p>
                         <p>Country: {event.city.country.name}</p>
+                        <p>Creator: {event.creator.email}</p>
+                        <p>{formatDate(event.createdAt)}</p>
+                        {isCreator && <p>You are the event's creator.</p>}
+
                         {!isCreator && (
                             <>
                                 {isParticipant ? (
@@ -110,7 +128,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents 
                                 ) : (
                                     <>
                                         {event.participantLimit !== null && event.participant.length >= event.participantLimit && !isParticipant ? (
-                                            <p>Sorry, event is full.</p>
+                                            <p>Sorry,this event is full.</p>
                                         ) : (
                                             <button onClick={handleJoinEvent}>Join Event</button>
                                         )}

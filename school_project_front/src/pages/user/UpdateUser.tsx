@@ -1,5 +1,5 @@
 import React from "react"
-import UpdateUserForm from "../../components/forms/update/UpdateUserForm.tsx";
+import UpdateUserForm from "../../components/forms/user/UpdateUserForm.tsx";
 
 const UpdateUser: React.FC = () => {
     return (

@@ -16,7 +16,7 @@ interface FilterValues {
 const EventsList: React.FC = () => {
     const { events, loading } = useGetAllEventsByFavoriteCityOfCurrentUser();
     const { getFilteredEvents } = useGetEventsFiltered();
-    const [filteredEvents, setFilteredEvents] = useState<Event[]>([]); // Initialiser avec un tableau vide par défaut
+    const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
     const [showFilters, setShowFilters] = useState(false);
 
     useEffect(() => {
@@ -26,17 +26,14 @@ const EventsList: React.FC = () => {
     }, [events, loading]);
 
     const handleFilterSubmit = async (filterValues: FilterValues) => {
-        // Vérifier si tous les champs du filtre sont vides
         const areAllFiltersEmpty = Object.values(filterValues).every(value => !value);
 
         if (areAllFiltersEmpty) {
-            // Si tous les filtres sont vides, réinitialiser filteredEvents à events
             setFilteredEvents(events);
         } else {
-            // Sinon, procéder au filtrage comme d'habitude
             try {
                 console.log("filterValues : ", filterValues)
-                const filteredData = await getFilteredEvents(filterValues); // Call the function from the hook here
+                const filteredData = await getFilteredEvents(filterValues);
                 if (Array.isArray(filteredData)) {
                     setFilteredEvents(filteredData);
                 }
@@ -52,14 +49,16 @@ const EventsList: React.FC = () => {
 
     return (
         <div className="events-list">
-            <button onClick={() => setShowFilters(!showFilters)}>Toggle Filters</button>
+        <button onClick={() => setShowFilters(!showFilters)}>Toggle Filters</button>
+        <button onClick={() => window.location.href = "/create-event"}>Create Event</button>
             {showFilters && <Filters onFilterSubmit={handleFilterSubmit} />}
             <ul>
                 {filteredEvents.length === 0 ? (
                     <div>No events available with your filter</div>
                 ) : (
                     <div className="event-cards">
-                        {filteredEvents.map((event) => (
+                        {filteredEvents
+                            .map((event) => (
                             <EventCard key={event.id} event={event}/>
                         ))}
                     </div>

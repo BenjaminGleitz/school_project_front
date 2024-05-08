@@ -11,8 +11,6 @@ const MyEventsCreated: React.FC = () => {
         setEvents(eventsCreated);
     }, [eventsCreated]);
 
-    console.log(events)
-
     if (loading) {
         return <div>Loading...</div>;
     }

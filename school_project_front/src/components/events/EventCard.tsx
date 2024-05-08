@@ -17,10 +17,13 @@ const EventCard: React.FC<EventCardProps> = ({ event, setEvents }) => {
         const options: Intl.DateTimeFormatOptions = {
             year: "numeric",
             month: "long",
-            day: "numeric"
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            timeZone: "UTC"
         };
 
-        return new Date(dateString).toLocaleDateString("fr-FR", options);
+        return new Date(dateString).toLocaleString("fr-FR", options);
     };
 
     const openModal = () => {

@@ -12,8 +12,6 @@ const MyEventsParticipation: React.FC = () => {
         setEvents(eventsParticipation);
     }, [eventsParticipation]);
 
-    console.log(events);
-
     if (loading) {
         return <div>Loading...</div>;
     }

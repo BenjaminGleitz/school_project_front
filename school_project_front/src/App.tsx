@@ -10,6 +10,7 @@ import UpdateUser from './pages/user/UpdateUser';
 import { UserProvider } from './contexts/UserContext';
 import MyEventsCreated from "./pages/user/EventsCreated.tsx";
 import MyEventsParticipation from "./pages/user/EventsPartcipation.tsx";
+import CreateEvent from "./pages/event/CreateEvent.tsx";
 
 const App: React.FC = () => {
     return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
                     <Route path="/profile/update" element={<UpdateUser />} />
                     <Route path={"/my-events"} element={<MyEventsCreated />} />
                     <Route path={"/my-participation"} element={<MyEventsParticipation />} />
+                    <Route path={"/create-event"} element={<CreateEvent />} />
                 </Routes>
             </BrowserRouter>
         </UserProvider>
