@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import EventCard from "../../components/events/EventCard";
 import useGetEventsParticipationByCurrentUser from "../../services/getEvent/useGetEventsParticipationByCurrentUser";
 import Event from "../../types/Event";
+import Loader from "../../components/loader/Loader.tsx";
 
 const MyEventsParticipation: React.FC = () => {
     const [events, setEvents] = useState<Event[]>([]);
@@ -13,7 +14,7 @@ const MyEventsParticipation: React.FC = () => {
     }, [eventsParticipation]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loader />;
     }
 
     return (

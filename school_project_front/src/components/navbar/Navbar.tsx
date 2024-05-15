@@ -1,13 +1,20 @@
 import React, { useState } from "react";
-import "./navbar.css";
+import "./css/navbar.css";
+import logo from "../../assets/images/logobleu.png";
 
 const Navbar: React.FC = () => {
     const [showNav, setShowNav] = useState(false);
     const [showOverlay, setShowOverlay] = useState(false);
 
     const toggleNav = () => {
-        setShowNav(!showNav);
-        setShowOverlay(!showOverlay);
+        const newState = !showNav;
+        setShowNav(newState);
+        setShowOverlay(newState);
+    };
+
+    const closeOverlay = () => {
+        setShowNav(false);
+        setShowOverlay(false);
     };
 
     const logOut = () => {
@@ -33,27 +40,28 @@ const Navbar: React.FC = () => {
 
     return (
         <nav className="navbar">
-            <div className="navbar-title">
-                <h1>TooGether</h1>
+            <div className="navbar-logo" onClick={goToHome}>
+                <img className="logo" src={logo} alt="Logo de l'entreprise"/>
             </div>
             <div className={`navbar-items ${showNav ? "active" : ""}`}>
                 <a href="">Home</a>
                 <a href="#top">&#8593;</a>
             </div>
             <div className={`navbar-toggle ${showNav ? "active" : ""}`} onClick={toggleNav}>
-                <span className="navbar-toggle-btn">&#9776;</span>
-            </div>
-            {/* Overlay */}
-            {showOverlay && (
-                <div className="overlay">
-                    <button onClick={() => goToHome()}>Home</button>
-                    <button onClick={() => goToProfile()}>My Profile</button>
-                    <button onClick={() => goToMyEvents()}>My Events</button>
-                    <button onClick={() => goToMyParticipation()}>My Participation</button>
-                    <button onClick={() => logOut()}>Log Out</button>
-                    <button className="close-menu-btn" onClick={() => setShowOverlay(false)}>Fermer</button>
+                <div className="navbar-toggle-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-            )}
+            </div>
+            <div className={`overlay ${showOverlay ? "active" : ""}`}>
+                <button onClick={goToHome}>Home</button>
+                <button onClick={goToProfile}>My Profile</button>
+                <button onClick={goToMyEvents}>My Events</button>
+                <button onClick={goToMyParticipation}>My Participation</button>
+                <button onClick={logOut}>Log Out</button>
+                <button className="close-menu-btn" onClick={closeOverlay}>Fermer</button>
+            </div>
         </nav>
     );
 };

@@ -7,6 +7,7 @@ import { getUserId } from "../../services/authentication/TokenLocalStorageServic
 import useAddParticipantToEvent from "../../services/getEvent/UseAddParticipantToEvent.tsx";
 import useRemoveParticipantFromEvent from "../../services/getEvent/UseRemoveParticipantFromEvent";
 import Message from "../messages/Message.tsx";
+import Loader from "../loader/Loader.tsx";
 
 interface EventModalProps {
     eventId: number;
@@ -16,9 +17,10 @@ interface EventModalProps {
 
 const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents }) => {
     const [event, setEvent] = useState<Event | null>(null);
-    const [isParticipant, setIsParticipant] = useState(false); // Indicateur pour savoir si l'utilisateur est un participant
-    const [isCreator, setIsCreator] = useState(false); // Indicateur pour savoir si l'utilisateur est le créateur de l'événement
-    const [message, setMessage] = useState<{ type: "success" | "error", text: string } | null>(null); // État pour gérer les messages de succès ou d'erreur
+    const [loading, setLoading] = useState<boolean>(true); // Set initial loading state to true
+    const [isParticipant, setIsParticipant] = useState(false);
+    const [isCreator, setIsCreator] = useState(false);
+    const [message, setMessage] = useState<{ type: "success" | "error", text: string } | null>(null);
     const getEventById = useGetOneEvent();
     const userIdFromToken = getUserId();
     const { addParticipantToEvent } = useAddParticipantToEvent();
@@ -26,19 +28,18 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents 
 
     useEffect(() => {
         const fetchEvent = async () => {
+            setLoading(true); // Set loading to true before fetching the event
             try {
                 const eventData = await getEventById(eventId);
-                setEvent(eventData);
+                setEvent(eventData.event); // set the event state to eventData.event instead of eventData
 
-                // Vérifier si l'utilisateur actuel est le créateur de l'événement
-                if (userIdFromToken === eventData?.creator.id) {
+                if (userIdFromToken === eventData.event?.creator.id) {
                     setIsCreator(true);
                 } else {
                     setIsCreator(false);
                 }
 
-                // Vérifier si l'utilisateur est un participant de l'événement
-                if (userIdFromToken && eventData?.participant.some(participant => participant.id === userIdFromToken)) {
+                if (userIdFromToken && eventData.event?.participant.some(participant => participant.id === userIdFromToken)) {
                     setIsParticipant(true);
                 } else {
                     setIsParticipant(false);
@@ -46,12 +47,12 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents 
             } catch (error) {
                 console.error("Error fetching event:", error);
             }
+            setLoading(false); // Set loading to false after fetching the event
         };
 
         fetchEvent();
     }, [eventId]);
 
-    // Fonction pour formater la date de l'événement
     const formatDate = (dateString: string): string => {
         const options: Intl.DateTimeFormatOptions = {
             year: "numeric",
@@ -106,8 +107,10 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents 
         <div className="event-modal">
             <div className="event-modal-content">
                 <button onClick={closeModal}>Close</button>
-                {message && <Message type={message.type} text={message.text} />} {/* Afficher le message */}
-                {event ? (
+                {message && <Message type={message.type} text={message.text} />}
+                {loading ? (
+                    <Loader />
+                ) : event ? (
                     <>
                         <p>Event id: {event.id}</p>
                         <p>Title: {event.title}</p>
@@ -120,6 +123,11 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents 
                         <p>Creator: {event.creator.email}</p>
                         <p>{formatDate(event.createdAt)}</p>
                         {isCreator && <p>You are the event's creator.</p>}
+                        {isCreator &&
+                            <button onClick={() => {
+                                window.location.href = `/update-event/${eventId}`;
+                            }}>Edit Event</button>
+                        }
 
                         {!isCreator && (
                             <>
@@ -138,7 +146,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents 
                         )}
                     </>
                 ) : (
-                    <p>Loading...</p>
+                    <p>Unable to load event.</p>
                 )}
             </div>
         </div>

@@ -10,3 +10,46 @@
     width: 100%;
     padding: 0;
 }
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    background-color: #ED6E33;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.filter-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.filter-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+.filters select, .filters input {
+    margin: 10px 0;
+    width: 160px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.filters input {
+    width: 150px;
+}
+
+.toggle-filter, .create-event-button {
+    margin: 5px 0;
+}

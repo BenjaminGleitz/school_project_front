@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import AuthService from "../../../services/authentication/AuthService.tsx";
 import useGetAllCountries from "../../../services/getCountry/UseGetAllCountries.tsx";
 import City from "../../../types/City.tsx";
@@ -9,7 +9,7 @@ interface FormErrors {
     firstname: string;
     lastname: string;
     selectedCountry: string;
-    general?: string; // Ajout de la propriété général
+    general?: string;
 }
 
 const RegisterForm: React.FC = () => {
@@ -17,7 +17,7 @@ const RegisterForm: React.FC = () => {
     const [password, setPassword] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
-    const { countries } = useGetAllCountries();
+    const {countries} = useGetAllCountries();
     const [selectedCountry, setSelectedCountry] = useState<number | "">("");
     const [selectedCity, setSelectedCity] = useState<City | null>(null);
     const [errors, setErrors] = useState<FormErrors>({
@@ -35,7 +35,7 @@ const RegisterForm: React.FC = () => {
             await authService.register(username, password, firstname, lastname, selectedCity?.id || null);
             window.location.href = "/login";
         } catch (error) {
-            setErrors((prevErrors) => ({ ...prevErrors, general: "Erreur lors de l'inscription." }));
+            setErrors((prevErrors) => ({...prevErrors, general: "Erreur lors de l'inscription."}));
         }
     };
 
@@ -52,7 +52,7 @@ const RegisterForm: React.FC = () => {
     };
 
     const validateForm = () => {
-        const newErrors = { ...errors };
+        const newErrors = {...errors};
         if (!username.trim()) {
             newErrors.username = "Veuillez saisir votre email.";
         } else {
@@ -99,12 +99,11 @@ const RegisterForm: React.FC = () => {
     };
 
     return (
-        <div>
-            <h2>Inscription</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Email :</label>
+        <form onSubmit={handleSubmit}>
+            <div className={"form-input"}>
+                <label>
                     <input
+                        placeholder={" Email :"}
                         type="email"
                         id="username"
                         value={username}
@@ -112,10 +111,12 @@ const RegisterForm: React.FC = () => {
                         required
                     />
                     {errors.username && <div>{errors.username}</div>}
-                </div>
-                <div>
-                    <label htmlFor="password">Password :</label>
+                </label>
+            </div>
+            <div className={"form-input"}>
+                <label>
                     <input
+                        placeholder={" Password :"}
                         type="password"
                         id="password"
                         value={password}
@@ -123,10 +124,12 @@ const RegisterForm: React.FC = () => {
                         required
                     />
                     {errors.password && <div>{errors.password}</div>}
-                </div>
-                <div>
-                    <label htmlFor="firstname">Firstname :</label>
+                </label>
+            </div>
+            <div className={"form-input"}>
+                <label>
                     <input
+                        placeholder={" First Name :"}
                         type="text"
                         id="firstname"
                         value={firstname}
@@ -134,10 +137,12 @@ const RegisterForm: React.FC = () => {
                         required
                     />
                     {errors.firstname && <div>{errors.firstname}</div>}
-                </div>
-                <div>
-                    <label htmlFor="lastname">Lastname :</label>
+                </label>
+            </div>
+            <div className={"form-input"}>
+                <label>
                     <input
+                        placeholder={" Last Name :"}
                         type="text"
                         id="lastname"
                         value={lastname}
@@ -145,9 +150,10 @@ const RegisterForm: React.FC = () => {
                         required
                     />
                     {errors.lastname && <div>{errors.lastname}</div>}
-                </div>
-                <div>
-                    <label htmlFor="country">Choisissez votre ville favorite :</label>
+                </label>
+            </div>
+            <div className={"form-input"}>
+                <label>
                     <select
                         id="country"
                         onChange={handleCountryChange}
@@ -160,10 +166,11 @@ const RegisterForm: React.FC = () => {
                         ))}
                     </select>
                     {errors.selectedCountry && <div>{errors.selectedCountry}</div>}
-                </div>
-                {selectedCountry && (
-                    <div>
-                        <label htmlFor="city">City :</label>
+                </label>
+            </div>
+            {selectedCountry && (
+                <div className={"form-input"}>
+                    <label>
                         <select
                             id="city"
                             onChange={handleCityChange}
@@ -176,12 +183,12 @@ const RegisterForm: React.FC = () => {
                                     <option key={city.id} value={city.id}>{city.name}</option>
                                 ))}
                         </select>
-                    </div>
-                )}
-                {errors.general && <div>{errors.general}</div>}
-                <button type="submit">S'inscrire</button>
-            </form>
-        </div>
+                    </label>
+                </div>
+            )}
+            {errors.general && <div>{errors.general}</div>}
+            <button type="submit">Sign up</button>
+        </form>
     );
 }
 

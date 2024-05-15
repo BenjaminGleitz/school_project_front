@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import useCreateEvent from "../../../services/getEvent/UseCreateEvent.tsx";
 import useGetAllCountries from "../../../services/getCountry/UseGetAllCountries.tsx";
 import useGetAllCategories from "../../../services/getCategory/useGetAllCategories.tsx";
@@ -7,8 +7,8 @@ import Message from "../../messages/Message.tsx";
 
 const CreateEventForm: React.FC = () => {
     const createEvent = useCreateEvent();
-    const { countries } = useGetAllCountries();
-    const { categories } = useGetAllCategories();
+    const {countries} = useGetAllCountries();
+    const {categories} = useGetAllCategories();
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -20,9 +20,16 @@ const CreateEventForm: React.FC = () => {
     const [selectedCountry, setSelectedCountry] = useState<string>("");
     const [message, setMessage] = useState<{ type: "success" | "error", text: string } | null>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+    const [titleError, setTitleError] = useState<string>("");
+    const [descriptionError, setDescriptionError] = useState<string>("");
+    const [startAtError, setStartAtError] = useState<string>("");
+    const [cityError, setCityError] = useState<string>("");
+    const [categoryError, setCategoryError] = useState<string>("");
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const {name, value} = e.target;
+        setFormData({...formData, [name]: value});
     };
 
     const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -36,22 +43,62 @@ const CreateEventForm: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setFormSubmitted(true);
+
+        let hasError = false;
+
+        if (!formData.title) {
+            setTitleError("Title is required");
+            hasError = true;
+        } else {
+            setTitleError("");
+        }
+
+        if (!formData.description) {
+            setDescriptionError("Description is required");
+            hasError = true;
+        } else {
+            setDescriptionError("");
+        }
+
+        if (!formData.start_at) {
+            setStartAtError("Start date is required");
+            hasError = true;
+        } else {
+            setStartAtError("");
+        }
+
+        if (!formData.city_id) {
+            setCityError("City is required");
+            hasError = true;
+        } else {
+            setCityError("");
+        }
+
+        if (!formData.category_id) {
+            setCategoryError("Category is required");
+            hasError = true;
+        } else {
+            setCategoryError("");
+        }
+
+        if (hasError) {
+            return;
+        }
+
         try {
             const createdEvent = await createEvent(formData);
             if (createdEvent) {
-                // Event created successfully, you can redirect or show a success message
                 console.log("Event created:", createdEvent);
-                setMessage({ type: "success", text: "Event created successfully" });
+                setMessage({type: "success", text: "Event created successfully"});
                 setShowModal(true);
                 setTimeout(() => {
                     setShowModal(false);
-                    //redirect
                     window.location.href = `/my-events`;
                 }, 3000);
             } else {
-                // Handle error, maybe show an error message to the user
                 console.log("Failed to create event");
-                setMessage({ type: "error", text: "Error creating event. Please try again later." });
+                setMessage({type: "error", text: "Error creating event. Please try again later."});
                 setShowModal(true);
                 setTimeout(() => {
                     setShowModal(false);
@@ -63,70 +110,122 @@ const CreateEventForm: React.FC = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Title:
-                <input type="text" name="title" value={formData.title} onChange={handleChange} />
-            </label>
-            <label>
-                Description:
-                <textarea name="description" value={formData.description} onChange={handleChange} />
-            </label>
-            <label>
-                Start Date and Time:
-                <input type="datetime-local" name="start_at" value={formData.start_at} onChange={handleChange} />
-            </label>
-            <label>
-                Country:
-                <select value={selectedCountry} onChange={handleCountryChange}>
-                    <option value="">Select Country</option>
-                    {countries.map((country) => (
-                        <option key={country.id} value={country.id}>
-                            {country.name}
-                        </option>
-                    ))}
-                </select>
-            </label>
-            {selectedCountry && (
+        <form onSubmit={handleSubmit} noValidate>
+            <div className={"form-input"}>
                 <label>
-                    City:
+                    <input
+                        placeholder={formSubmitted && !formData.title ? titleError : "Title : "}
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        required
+                        className={formSubmitted && !formData.title ? 'invalid' : ''}
+                    />
+                </label>
+            </div>
+            <div className={"form-input"}>
+                <label>
+                    <textarea
+                        placeholder={formSubmitted && !formData.description ? descriptionError : "Description : "}
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        required
+                        className={formSubmitted && !formData.description ? 'invalid' : ''}
+                    />
+                </label>
+            </div>
+            <div className={"form-input"}>
+                <label>
+                    <input
+                        placeholder={formSubmitted && !formData.start_at ? startAtError : "Start Date : "}
+                        type="datetime-local"
+                        name="start_at"
+                        value={formData.start_at}
+                        onChange={handleChange}
+                        required
+                        className={formSubmitted && !formData.start_at ? 'invalid' : ''}
+                    />
+                </label>
+            </div>
+            <div className={"form-input"}>
+                <label>
                     <select
-                        value={formData.city_id}
-                        onChange={(e) => setFormData({ ...formData, city_id: parseInt(e.target.value) })}
+                        value={selectedCountry}
+                        onChange={handleCountryChange}
+                        required
+                        className={formSubmitted && !selectedCountry ? 'invalid' : ''}
                     >
-                        <option value="">Select City</option>
-                        {countries
-                            .find((country) => country.id === parseInt(selectedCountry))
-                            ?.cities.map((city) => (
-                                <option key={city.id} value={city.id}>
-                                    {city.name}
-                                </option>
-                            ))}
+                        <option value="">
+                            {formSubmitted && !selectedCountry ? "Select Country" : "Select Country"}
+                        </option>
+                        {countries.map((country) => (
+                            <option key={country.id} value={country.id}>
+                                {country.name}
+                            </option>
+                        ))}
                     </select>
                 </label>
+            </div>
+            {selectedCountry && (
+                <div className={"form-input"}>
+                    <label>
+                        <select
+                            value={formData.city_id}
+                            onChange={(e) => setFormData({...formData, city_id: parseInt(e.target.value)})}
+                            required
+                            className={formSubmitted && !formData.city_id ? 'invalid' : ''}
+                        >
+                            <option value="">
+                                {formSubmitted && !formData.city_id ? cityError : "Select City"}
+                            </option>
+                            {countries
+                                .find((country) => country.id === parseInt(selectedCountry))
+                                ?.cities.map((city) => (
+                                    <option key={city.id} value={city.id}>
+                                        {city.name}
+                                    </option>
+                                ))}
+                        </select>
+                    </label>
+                </div>
             )}
-            <label>
-                Category ID:
-                <select
-                    value={formData.category_id}
-                    onChange={(e) => setFormData({ ...formData, category_id: parseInt(e.target.value) })}
-                >
-                    <option value="">Select Category</option>
-                    {categories.map((category) => (
-                        <option key={category.id} value={category.id}>
-                            {category.title}
+            <div className={"form-input"}>
+                <label>
+                    <select
+                        value={formData.category_id}
+                        onChange={(e) => setFormData({...formData, category_id: parseInt(e.target.value)})}
+                        required
+                        className={formSubmitted && !formData.category_id ? 'invalid' : ''}
+                    >
+                        <option value="">
+                            {formSubmitted && !formData.category_id ? categoryError : "Select Category"}
                         </option>
-                    ))}
-                </select>
-            </label>
-            <label>
-                Participant Limit:
-                <input type="number" name="participantLimit" value={formData.participantLimit} onChange={handleChange} />
-            </label>
-            {showModal && message && <Message type={message.type} text={message.text} />}
+                        {categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                                {category.title}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+            </div>
+            <div className={"form-input"}>
+                <label>
+                    <input
+                        placeholder={formSubmitted && !formData.participantLimit ? "Participant Limit : " : ""}
+                        type="number"
+                        name="participantLimit"
+                        value={formData.participantLimit}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+            </div>
+            {showModal && message && <Message type={message.type} text={message.text}/>}
             <button type="submit">Create Event</button>
         </form>
     );
-};
+}
 
 export default CreateEventForm;

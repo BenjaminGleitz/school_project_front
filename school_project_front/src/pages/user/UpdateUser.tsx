@@ -3,7 +3,7 @@ import UpdateUserForm from "../../components/forms/user/UpdateUserForm.tsx";
 
 const UpdateUser: React.FC = () => {
     return (
-        <div>
+        <div className={"form-container"}>
             <h2>Mise à jour de l'utilisateur</h2>
             < UpdateUserForm/>
         </div>

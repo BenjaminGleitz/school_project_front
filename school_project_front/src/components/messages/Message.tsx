@@ -1,6 +1,6 @@
 // Message.tsx
 import React from "react";
-import "./messages.css";
+import "./css/messages.css";
 
 interface MessageProps {
     type: "success" | "error";

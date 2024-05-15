@@ -3,6 +3,50 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 90%;
     margin-top: 20px;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.form-input input, .form-input textarea, .form-input select {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-input select {
+    width: 101%;
+}
+
+.invalid {
+    border-color: #ff4f4f;
+}
+
+input.invalid::placeholder, textarea.invalid::placeholder, select.invalid {
+    color: #ff4f4f;
+}
+
+.error-message {
+    color: #ff4f4f;
+    font-size: 1rem;
+}
+
+.error-message.visible {
+    visibility: visible;
+}
+
+input[type="datetime-local"].invalid {
+    border-color: #ff4f4f;
+}
+
+input[type="datetime-local"].invalid::placeholder {
+    color: #ff4f4f;
 }
