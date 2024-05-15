@@ -175,7 +175,7 @@ const UpdateUserForm: React.FC = () => {
                 </div>
             )}
             {errors.general && <div>{errors.general}</div>}
-            <button type="submit">Mettre à jour</button>
+            <button type="submit">Update</button>
         </form>
     );
 }
