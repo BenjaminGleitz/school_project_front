@@ -8,7 +8,8 @@ const LoginForm: React.FC = () => {
 
     const authService = AuthService.getInstance();
 
-    const handleLogin = async () => {
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault(); // Empêche le rechargement de la page par défaut du formulaire
         try {
             await authService.login(username, password);
             window.location.href = "/";
@@ -18,20 +19,19 @@ const LoginForm: React.FC = () => {
     };
 
     return (
-        <div>
-            <h2>Connexion</h2>
-            <div>
-                <label htmlFor="username">Email :</label>
+        <form onSubmit={handleLogin}>
+            <div className={"form-input"}>
                 <input
+                    placeholder={" Email : "}
                     type="text"
                     id="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
             </div>
-            <div>
-                <label htmlFor="password">Password :</label>
+            <div className={"form-input"}>
                 <input
+                    placeholder={" Password : "}
                     type="password"
                     id="password"
                     value={password}
@@ -39,8 +39,8 @@ const LoginForm: React.FC = () => {
                 />
             </div>
             {error && <div>{error}</div>}
-            <button onClick={handleLogin}>Log In</button>
-        </div>
+            <button type="submit">Log In</button>
+        </form>
     );
 };
 

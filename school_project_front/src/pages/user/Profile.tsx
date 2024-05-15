@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
 import Message from "../../components/messages/Message.tsx";
+import Loader from "../../components/loader/Loader.tsx";
+import '../css/profile.css';
 
 const Profile: React.FC = () => {
     const currentUser = useUser();
@@ -22,7 +24,7 @@ const Profile: React.FC = () => {
     }, [location.search]);
 
     return (
-        <div>
+        <div className={"profile-detail"}>
             <h1>My Profile</h1>
             {showSuccessMessage && (
                 <Message type="success" text="Profile updated successfully" />
@@ -43,10 +45,10 @@ const Profile: React.FC = () => {
                     ) : (
                         <p>No favorite city</p>
                     )}
-                    <Link to="/profile/update">Update Profile</Link> {/* Ajoutez le lien vers UpdateUser */}
+                    <Link to="/profile/update">Update Profile</Link>
                 </>
             ) : (
-                <p>Loading...</p>
+                <Loader />
             )}
         </div>
     );

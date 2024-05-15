@@ -9,7 +9,8 @@ interface Event {
     description: string | null;
     city: City;
     category: Category;
-    start_at: string; // Vous pouvez utiliser un type Date si vous convertissez la chaîne en objet Date
+    start_at: string;
+    createdAt: string;
     country: Country;
     creator: User;
     participant: User[];

@@ -1,26 +1,27 @@
 // EventCard.tsx
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Event from "../../types/Event";
 import EventModal from "./EventModal";
 import "./css/eventCard.css";
+import { ImLocation } from "react-icons/im";
+import '@fontsource/roboto';
 
 interface EventCardProps {
     event: Event;
     setEvents?: React.Dispatch<React.SetStateAction<Event[]>>;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event, setEvents }) => {
+const EventCard: React.FC<EventCardProps> = ({event, setEvents}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Fonction pour formater la date de l'événement
     const formatDate = (dateString: string): string => {
         const options: Intl.DateTimeFormatOptions = {
             year: "numeric",
             month: "long",
-            day: "numeric"
+            day: "numeric",
         };
 
-        return new Date(dateString).toLocaleDateString("fr-FR", options);
+        return new Date(dateString).toLocaleString("fr-FR", options);
     };
 
     const openModal = () => {
@@ -36,8 +37,12 @@ const EventCard: React.FC<EventCardProps> = ({ event, setEvents }) => {
     return (
         <div className="event-card" onClick={openModal}>
             <div className="event-card-main-info">
-                <h2>{event.title}</h2>
-                <p>{event.category.title}</p>
+                <div className="event-card-categorie">
+                    <p>{event.category.title}</p>
+                </div>
+                <div className="event-card-title">
+                    <h2>{event.title}</h2>
+                </div>
             </div>
             <div className="event-card-details">
                 <div className="event-card-details-user">
@@ -45,11 +50,11 @@ const EventCard: React.FC<EventCardProps> = ({ event, setEvents }) => {
                     <p>{event.participantLimit}</p>
                 </div>
                 <div className="event-card-details-location">
-                <p>{event.city.name}</p>
-                    <p>{event.city.country.name}</p>
+                    <p><ImLocation/> {event.city.country.name}, </p>
+                    <p className={"city-name"}>{event.city.name}</p>
                 </div>
             </div>
-            {isModalOpen && <EventModal eventId={event.id} closeModal={closeModal} setEvents={setEvents} />}
+            {isModalOpen && <EventModal eventId={event.id} closeModal={closeModal} setEvents={setEvents}/>}
         </div>
     );
 }

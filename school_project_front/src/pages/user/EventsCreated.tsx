@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import EventCard from "../../components/events/EventCard";
 import useGetEventsCreatedByCurrentUser from "../../services/getEvent/UseGetEventsCreatedByCurrentUser.tsx";
 import Event from "../../types/Event";
+import Loader from "../../components/loader/Loader.tsx";
 
 const MyEventsCreated: React.FC = () => {
     const [events, setEvents] = useState<Event[]>([]);
@@ -11,10 +12,8 @@ const MyEventsCreated: React.FC = () => {
         setEvents(eventsCreated);
     }, [eventsCreated]);
 
-    console.log(events)
-
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loader />;
     }
 
     return (

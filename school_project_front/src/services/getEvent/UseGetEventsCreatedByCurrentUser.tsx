@@ -15,7 +15,10 @@ const useGetEventsCreatedByCurrentUser = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setEvents(response.data);
+            const sortedEvents = response.data.sort((a: Event, b: Event) => {
+                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+            });
+            setEvents(sortedEvents);
         } catch (error) {
             console.error(error);
         } finally {
