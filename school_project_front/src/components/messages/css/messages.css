@@ -22,13 +22,13 @@
 }
 
 .message.success {
-    background-color: #d4edda; /* Vert clair */
-    border-color: #c3e6cb;
-    color: #155724; /* Vert foncé */
+    background-color: #198754; /* Vert clair */
+    border-color: #198754;
+    color: white; /* Vert foncé */
 }
 
 .message.error {
-    background-color: #f8d7da; /* Rouge clair */
-    border-color: #f5c6cb;
-    color: #721c24; /* Rouge foncé */
+    background-color: #dc3545; /* Rouge */
+    border-color: #dc3545;
+    color: white; /* Rouge */
 }

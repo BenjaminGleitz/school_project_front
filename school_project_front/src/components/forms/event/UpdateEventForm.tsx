@@ -7,6 +7,8 @@ import useGetOneEvent from "../../../services/getEvent/UseGetOneEvent.tsx";
 import useUpdateEvent from "../../../services/getEvent/UseUpdateEvent.tsx";
 import { useUser } from "../../../contexts/UserContext.tsx";
 import Loader from "../../loader/Loader.tsx";
+import "./createEventForm.css";
+import "./updateEvent.css";
 
 const UpdateEventForm: React.FC = () => {
     const { eventId } = useParams<{ eventId: string }>();
@@ -106,74 +108,88 @@ const UpdateEventForm: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className={"form-container"}>
             {loading ? (
-                <Loader />
+                <Loader/>
             ) : isAllowed ? (
                 <form onSubmit={handleSubmit}>
-                    <label>
-                        Title:
-                        <input type="text" name="title" value={formData.title} onChange={handleChange}/>
-                    </label>
-                    <label>
-                        Description:
-                        <textarea name="description" value={formData.description} onChange={handleChange}/>
-                    </label>
-                    <label>
-                        Start Date and Time:
-                        <input type="datetime-local" name="start_at" value={formData.start_at} onChange={handleChange}/>
-                    </label>
-                    <label>
-                        Country:
-                        <select value={selectedCountry} onChange={handleCountryChange}>
-                            <option value="">Select Country</option>
-                            {countries.map((country) => (
-                                <option key={country.id} value={country.id}>
-                                    {country.name}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-                    {selectedCountry && (
+                    <div className={"form-input"}>
                         <label>
-                            City:
-                            <select
-                                value={formData.city_id}
-                                onChange={(e) => setFormData({...formData, city_id: parseInt(e.target.value)})}
-                            >
-                                <option value="">Select City</option>
-                                {countries
-                                    .find((country) => country.id === parseInt(selectedCountry))
-                                    ?.cities.map((city) => (
-                                        <option key={city.id} value={city.id}>
-                                            {city.name}
-                                        </option>
-                                    ))}
+                            Title:
+                            <input type="text" name="title" value={formData.title} onChange={handleChange}/>
+                        </label>
+                    </div>
+                    <div className={"form-input"}>
+                        <label>
+                            Description:
+                            <textarea name="description" value={formData.description} onChange={handleChange}/>
+                        </label>
+                    </div>
+                    <div className={"form-input"}>
+                        <label>
+                            Start Date:
+                            <input type="datetime-local" name="start_at" value={formData.start_at}
+                                   onChange={handleChange}/>
+                        </label>
+                    </div>
+                    <div className={"form-input"}>
+                        <label>
+                            <span>Country:</span>
+                            <select value={selectedCountry} onChange={handleCountryChange}>
+                                <option value="">Select Country</option>
+                                {countries.map((country) => (
+                                    <option key={country.id} value={country.id}>
+                                        {country.name}
+                                    </option>
+                                ))}
                             </select>
                         </label>
-                    )}
-                    <label>
-                        Category ID:
-                        <select
-                            value={formData.category_id}
-                            onChange={(e) => setFormData({...formData, category_id: parseInt(e.target.value)})}
-                        >
-                            <option value="">Select Category</option>
-                            {categories.map((category) => (
-                                <option key={category.id} value={category.id}>
-                                    {category.title}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-                    <label>
-                        Participant Limit:
-                        <input type="number" name="participantLimit" value={formData.participantLimit} onChange={handleChange}/>
-                    </label>
+                        {selectedCountry && (
+                            <label>
+                                <span>City:</span>
+                                <select
+                                    value={formData.city_id}
+                                    onChange={(e) => setFormData({...formData, city_id: parseInt(e.target.value)})}
+                                >
+                                    <option value="">Select City</option>
+                                    {countries
+                                        .find((country) => country.id === parseInt(selectedCountry))
+                                        ?.cities.map((city) => (
+                                            <option key={city.id} value={city.id}>
+                                                {city.name}
+                                            </option>
+                                        ))}
+                                </select>
+                            </label>
+                        )}
+                    </div>
+                    <div className={"form-input"}>
+                        <label>
+                            Category:
+                            <select
+                                value={formData.category_id}
+                                onChange={(e) => setFormData({...formData, category_id: parseInt(e.target.value)})}
+                            >
+                                <option value="">Select Category</option>
+                                {categories.map((category) => (
+                                    <option key={category.id} value={category.id}>
+                                        {category.title}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
+                    </div>
+                    <div className={"form-input"}>
+                        <label>
+                            Participant Limit:
+                            <input type="number" name="participantLimit" value={formData.participantLimit}
+                                   onChange={handleChange}/>
+                        </label>
+                    </div>
                     {message && <Message type={message.type} text={message.text}/>}
                     <button type="submit">Update Event</button>
                 </form>
-            ) : null }
+            ) : null}
         </div>
     );
 };
