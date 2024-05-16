@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
-import { useUser } from '../../contexts/UserContext';
+import {useLocation} from 'react-router-dom';
+import {useUser} from '../../contexts/UserContext';
 import Message from "../../components/messages/Message.tsx";
 import Loader from "../../components/loader/Loader.tsx";
 import '../css/profile.css';
@@ -27,28 +27,36 @@ const Profile: React.FC = () => {
         <div className={"profile-detail"}>
             <h1>My Profile</h1>
             {showSuccessMessage && (
-                <Message type="success" text="Profile updated successfully" />
+                <Message type="success" text="Profile updated successfully"/>
             )}
             {currentUser ? (
                 <>
-                    <p>ID: {currentUser.id}</p>
-                    <p>Email: {currentUser.email}</p>
-                    <p>First Name: {currentUser.firstname}</p>
-                    <p>Last Name: {currentUser.lastname}</p>
-                    <p>Created At: {currentUser.createdAt}</p>
-                    <p>Updated At: {currentUser.updatedAt}</p>
-                    <p>Roles: {currentUser.roles.join(', ')}</p>
-                    <p>Events Created: {currentUser.eventsCreated.length}</p>
-                    <p>Events: {currentUser.events.length}</p>
-                    {currentUser.favoriteCity ? (
-                        <p>Favorite City: {currentUser.favoriteCity.name}</p>
-                    ) : (
-                        <p>No favorite city</p>
-                    )}
-                    <Link to="/profile/update">Update Profile</Link>
+                    <div className="profile-container">
+                        <div className="profile-items">
+                            <p>Email: </p>
+                            <p>First Name: </p>
+                            <p>Last Name: </p>
+                            <p>Events Created: </p>
+                            <p>Events: </p>
+                            <p>Favorite City: </p>
+                        </div>
+                        <div className="profile-items-values">
+                            <p>{currentUser.email}</p>
+                            <p>{currentUser.firstname}</p>
+                            <p>{currentUser.lastname}</p>
+                            <p>{currentUser.eventsCreated.length}</p>
+                            <p>{currentUser.events.length}</p>
+                            {currentUser.favoriteCity ? (
+                                <p>{currentUser.favoriteCity.name}</p>
+                            ) : (
+                                <p>No favorite city</p>
+                            )}
+                        </div>
+                    </div>
+                    <button onClick={() => window.location.href = "/profile/update"}>Update Profile</button>
                 </>
             ) : (
-                <Loader />
+                <Loader/>
             )}
         </div>
     );

@@ -13,9 +13,8 @@
 
 .event-modal-content {
     background-color: white;
-    padding: 20px;
     border-radius: 10px;
-    width: 80%;
+    width: 90%;
     height: 80%;
     max-width: 800px;
     max-height: 600px;
@@ -29,6 +28,49 @@
     cursor: pointer;
 }
 
-.close:hover {
-    color: red;
+.closeButton {
+    background-color: white;
+    color: #DC3545;
+    border: 1px solid #DC3545;
+    margin: 10px 0;
+}
+
+.deleteButton {
+    background-color: #DC3545;
+    color: white;
+    margin-right: 10px;
+}
+
+.joinButton {
+    background-color: #198754;
+    color: white;
+}
+
+.leaveButton {
+    background-color: #DC3545;
+    color: white;
+}
+
+.event-modal-title {
+    background-color: #ED6E33;
+}
+
+.eventCategory {
+    display: flex;
+    justify-content: start;
+    margin-left: 20px;
+    font-style: italic;
+    color: white;
+}
+
+.eventTitle {
+    display: flex;
+    justify-content: center;
+    color: #272C63;
+}
+
+.showParticipantsButton, .updateEventButton {
+    background-color: #272C63;
+    color: white;
+    margin-right: 10px;
 }
