@@ -21,6 +21,7 @@ const useAddParticipantToEvent = () => {
             return response.data;
         } catch (error) {
             setLoading(false);
+            window.location.href = "/login";
             if (axios.isAxiosError(error)) {
                 setError(error);
             }

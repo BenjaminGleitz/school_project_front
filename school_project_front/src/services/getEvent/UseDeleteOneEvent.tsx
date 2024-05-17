@@ -14,6 +14,7 @@ const useDeleteOneEvent = (): ((eventId: number) => Promise<{ success: boolean, 
             return { success: true, message: 'Event deleted successfully' };
         } catch (error: any) {
             console.error('Error deleting event:', error);
+            window.location.href = "/login";
             return { success: false, message: error.response?.data?.error || 'Error deleting event' };
         }
     };

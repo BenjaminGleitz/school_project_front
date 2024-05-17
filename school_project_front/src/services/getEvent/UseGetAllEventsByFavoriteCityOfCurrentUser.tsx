@@ -9,6 +9,7 @@ const useGetAllEventsByFavoriteCityOfCurrentUser = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const getEvents = async () => {
+        setLoading(true);
         try {
             const response = await axios.get('http://127.0.0.1:8000/api/event/my/favorite-city/events', {
                 headers: {
@@ -21,6 +22,7 @@ const useGetAllEventsByFavoriteCityOfCurrentUser = () => {
             setEvents(sortedEvents);
         } catch (error) {
             console.error(error);
+            window.location.href = "/login";
         } finally {
             setLoading(false);
         }
@@ -30,7 +32,7 @@ const useGetAllEventsByFavoriteCityOfCurrentUser = () => {
         getEvents();
     }, []);
 
-    return { events, loading};
+    return { events, loading, refetch: getEvents };
 }
 
 export default useGetAllEventsByFavoriteCityOfCurrentUser;

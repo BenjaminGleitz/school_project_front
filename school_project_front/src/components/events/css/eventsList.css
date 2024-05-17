@@ -5,6 +5,14 @@
     width: 95%;
 }
 
+.btn-group {
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .events-list ul {
     list-style-type: none;
     width: 100%;

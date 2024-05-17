@@ -27,16 +27,20 @@ form {
 }
 
 .invalid {
-    border-color: #ff4f4f;
+    border-color: #DC3545;
 }
 
 input.invalid::placeholder, textarea.invalid::placeholder, select.invalid {
-    color: #ff4f4f;
+    color: #DC3545;
 }
 
 .error-message {
-    color: #ff4f4f;
+    color: #DC3545;
     font-size: 1rem;
+}
+
+.future-date {
+    margin: 0;
 }
 
 .error-message.visible {
@@ -44,9 +48,9 @@ input.invalid::placeholder, textarea.invalid::placeholder, select.invalid {
 }
 
 input[type="datetime-local"].invalid {
-    border-color: #ff4f4f;
+    border-color: #DC3545;
 }
 
 input[type="datetime-local"].invalid::placeholder {
-    color: #ff4f4f;
+    color: #DC3545;
 }

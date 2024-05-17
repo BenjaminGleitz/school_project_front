@@ -21,6 +21,7 @@ const useGetEventsCreatedByCurrentUser = () => {
             setEvents(sortedEvents);
         } catch (error) {
             console.error(error);
+            window.location.href = "/login";
         } finally {
             setLoading(false);
         }

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import "./css/navbar.css";
 import logo from "../../assets/images/logobleu.png";
+import {useUser} from "../../contexts/UserContext";
 
 const Navbar: React.FC = () => {
     const [showNav, setShowNav] = useState(false);
     const [showOverlay, setShowOverlay] = useState(false);
+    const currentUser = useUser();
 
     const toggleNav = () => {
         const newState = !showNav;
@@ -27,7 +29,7 @@ const Navbar: React.FC = () => {
     }
 
     const goToHome = () => {
-        window.location.href = "/";
+        window.location.href = "/home";
     }
 
     const goToMyEvents = () => {
@@ -55,11 +57,27 @@ const Navbar: React.FC = () => {
                 </div>
             </div>
             <div className={`overlay ${showOverlay ? "active" : ""}`}>
-                <button onClick={goToHome}>Home</button>
-                <button onClick={goToProfile}>My Profile</button>
-                <button onClick={goToMyEvents}>My Events</button>
-                <button onClick={goToMyParticipation}>My Participation</button>
-                <button onClick={logOut}>Log Out</button>
+                {currentUser && (
+                    <button onClick={goToHome}>Home</button>
+                )}
+                {currentUser && (
+                    <button onClick={goToProfile}>My Profile</button>
+                )}
+                {currentUser && (
+                    <button onClick={goToMyEvents}>My Events</button>
+                )}
+                {currentUser && (
+                    <button onClick={goToMyParticipation}>My Participation</button>
+                )}
+                {currentUser && (
+                    <button onClick={logOut}>Log Out</button>
+                )}
+                {!currentUser && (
+                    <button onClick={() => window.location.href = "/login"}>Login</button>
+                )}
+                {!currentUser && (
+                    <button onClick={() => window.location.href = "/register"}>Register</button>
+                )}
                 <button className="close-menu-btn" onClick={closeOverlay}>Fermer</button>
             </div>
         </nav>

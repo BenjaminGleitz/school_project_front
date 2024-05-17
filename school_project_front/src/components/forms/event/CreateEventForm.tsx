@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import useCreateEvent from "../../../services/getEvent/UseCreateEvent.tsx";
 import useGetAllCountries from "../../../services/getCountry/UseGetAllCountries.tsx";
 import useGetAllCategories from "../../../services/getCategory/useGetAllCategories.tsx";
@@ -7,15 +7,15 @@ import Message from "../../messages/Message.tsx";
 
 const CreateEventForm: React.FC = () => {
     const createEvent = useCreateEvent();
-    const {countries} = useGetAllCountries();
-    const {categories} = useGetAllCategories();
+    const { countries } = useGetAllCountries();
+    const { categories } = useGetAllCategories();
     const [formData, setFormData] = useState({
         title: "",
         description: "",
         start_at: "",
         city_id: 0,
         category_id: 0,
-        participantLimit: 0
+        participantLimit: "" as number | string | null
     });
     const [selectedCountry, setSelectedCountry] = useState<string>("");
     const [message, setMessage] = useState<{ type: "success" | "error", text: string } | null>(null);
@@ -27,9 +27,9 @@ const CreateEventForm: React.FC = () => {
     const [cityError, setCityError] = useState<string>("");
     const [categoryError, setCategoryError] = useState<string>("");
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const {name, value} = e.target;
-        setFormData({...formData, [name]: value});
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -37,7 +37,7 @@ const CreateEventForm: React.FC = () => {
         setSelectedCountry(countryId);
         const selectedCountryObj = countries.find(country => country.id === parseInt(countryId));
         if (selectedCountryObj) {
-            setFormData({...formData, city_id: 0});
+            setFormData({ ...formData, city_id: 0 });
         }
     };
 
@@ -64,6 +64,9 @@ const CreateEventForm: React.FC = () => {
         if (!formData.start_at) {
             setStartAtError("Start date is required");
             hasError = true;
+        } else if (new Date(formData.start_at) < new Date()) {
+            setStartAtError("Start date must be in the future");
+            hasError = true;
         } else {
             setStartAtError("");
         }
@@ -86,11 +89,17 @@ const CreateEventForm: React.FC = () => {
             return;
         }
 
+        // Transform participantLimit to null if it's 0 or an empty string
+        const dataToSubmit = {
+            ...formData,
+            participantLimit: formData.participantLimit === "" || formData.participantLimit === "0" ? null : Number(formData.participantLimit)
+        };
+
         try {
-            const createdEvent = await createEvent(formData);
+            const createdEvent = await createEvent(dataToSubmit);
             if (createdEvent) {
                 console.log("Event created:", createdEvent);
-                setMessage({type: "success", text: "Event created successfully"});
+                setMessage({ type: "success", text: "Event created successfully" });
                 setShowModal(true);
                 setTimeout(() => {
                     setShowModal(false);
@@ -98,7 +107,7 @@ const CreateEventForm: React.FC = () => {
                 }, 3000);
             } else {
                 console.log("Failed to create event");
-                setMessage({type: "error", text: "Error creating event. Please try again later."});
+                setMessage({ type: "error", text: "Error creating event. Please try again later." });
                 setShowModal(true);
                 setTimeout(() => {
                     setShowModal(false);
@@ -106,6 +115,11 @@ const CreateEventForm: React.FC = () => {
             }
         } catch (error) {
             console.error("Error creating event:", error);
+            setMessage({ type: "error", text: "Error creating event. Please try again later." });
+            setShowModal(true);
+            setTimeout(() => {
+                setShowModal(false);
+            }, 3000);
         }
     };
 
@@ -145,8 +159,9 @@ const CreateEventForm: React.FC = () => {
                         value={formData.start_at}
                         onChange={handleChange}
                         required
-                        className={formSubmitted && !formData.start_at ? 'invalid' : ''}
+                        className={formSubmitted && (formData.start_at === "" || new Date(formData.start_at) < new Date()) ? 'invalid' : ''}
                     />
+                    {startAtError && <p className="error-message future-date">{startAtError}</p>}
                 </label>
             </div>
             <div className={"form-input"}>
@@ -173,7 +188,7 @@ const CreateEventForm: React.FC = () => {
                     <label>
                         <select
                             value={formData.city_id}
-                            onChange={(e) => setFormData({...formData, city_id: parseInt(e.target.value)})}
+                            onChange={(e) => setFormData({ ...formData, city_id: parseInt(e.target.value) })}
                             required
                             className={formSubmitted && !formData.city_id ? 'invalid' : ''}
                         >
@@ -195,7 +210,7 @@ const CreateEventForm: React.FC = () => {
                 <label>
                     <select
                         value={formData.category_id}
-                        onChange={(e) => setFormData({...formData, category_id: parseInt(e.target.value)})}
+                        onChange={(e) => setFormData({ ...formData, category_id: parseInt(e.target.value) })}
                         required
                         className={formSubmitted && !formData.category_id ? 'invalid' : ''}
                     >
@@ -213,16 +228,15 @@ const CreateEventForm: React.FC = () => {
             <div className={"form-input"}>
                 <label>
                     <input
-                        placeholder={formSubmitted && !formData.participantLimit ? "Participant Limit : " : ""}
+                        placeholder={"Participant Limit : (don't fill if no limit)"}
                         type="number"
                         name="participantLimit"
-                        value={formData.participantLimit}
+                        value={formData.participantLimit || ""}
                         onChange={handleChange}
-                        required
                     />
                 </label>
             </div>
-            {showModal && message && <Message type={message.type} text={message.text}/>}
+            {showModal && message && <Message type={message.type} text={message.text} />}
             <button type="submit">Create Event</button>
         </form>
     );
