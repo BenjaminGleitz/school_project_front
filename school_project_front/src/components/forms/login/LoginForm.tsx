@@ -12,7 +12,7 @@ const LoginForm: React.FC = () => {
         e.preventDefault(); // Empêche le rechargement de la page par défaut du formulaire
         try {
             await authService.login(username, password);
-            window.location.href = "/";
+            window.location.href = "/home";
         } catch (error) {
             setError("Identifiant ou mot de passe incorrect.");
         }

@@ -47,7 +47,7 @@ const EventCard: React.FC<EventCardProps> = ({event, setEvents}) => {
             <div className="event-card-details">
                 <div className="event-card-details-user">
                     <p>{formatDate(event.start_at)}</p>
-                    <p>{event.participantLimit}</p>
+                    <p>Limit : {event.participantLimit}</p>
                 </div>
                 <div className="event-card-details-location">
                     <p><ImLocation/> {event.city.country.name} </p>

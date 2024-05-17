@@ -10,7 +10,7 @@ const useCreateEvent = () => {
         start_at: string;
         city_id: number;
         category_id: number;
-        participantLimit: number;
+        participantLimit: number | null;
     }): Promise<any> => {
         try {
             const response = await axios.post(`http://127.0.0.1:8000/api/event/`, eventData, {
@@ -22,6 +22,7 @@ const useCreateEvent = () => {
             return response.data;
         } catch (error) {
             console.error(error);
+            window.location.href = "/login";
             return null;
         }
     };

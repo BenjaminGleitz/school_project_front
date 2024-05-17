@@ -35,7 +35,7 @@ const Login: React.FC = () => {
                 <p>Don't have an account? <a href="/register">Register</a></p>
             )}
             {currentUser && (
-                <p>Logged in as {currentUser.email}, <a href="/">Go to home</a></p>
+                <p>Logged in as {currentUser.email}, <a href="/home">Go to home</a></p>
             )}
             {currentUser && (
                 <button onClick={() => logOut()}>Log Out</button>

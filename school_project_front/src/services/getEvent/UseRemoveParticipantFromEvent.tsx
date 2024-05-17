@@ -25,6 +25,7 @@ const useRemoveParticipantFromEvent = () => {
                 setError(error);
             }
             console.error("Error removing participant from event:", error);
+            window.location.href = "/login";
             throw error;
         }
     };
