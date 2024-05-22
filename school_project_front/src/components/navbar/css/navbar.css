@@ -3,8 +3,9 @@
     padding: 10px;
     color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    font-family: 'Satoshi-Bold', sans-serif;
 }
 
 .navbar-logo {

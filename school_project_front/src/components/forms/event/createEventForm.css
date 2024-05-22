@@ -96,22 +96,8 @@ input[type="datetime-local"].invalid::placeholder {
     display: flex;
     flex-direction: column;
     width: 80%;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-}
-
-.register-title {
-    font-size: 2rem;
-    display: flex;
-    text-align: start;
-    margin: 10px 0 0 20px;
-}
-
-.register-subtitle {
-    font-size: 1rem;
-    display: flex;
-    text-align: start;
-    margin: 10px 0 0 20px;
 }
 
 .form-container-register {

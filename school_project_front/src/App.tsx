@@ -14,6 +14,7 @@ import ChangeLocationUser from './pages/user/ChangeLocationUser';
 import Home from './pages/Home';
 import MyEventsParticipation from "./pages/user/EventsPartcipation.tsx";
 import Auth from "./pages/Auth.tsx";
+import './assets/fonts/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/css/satoshi.css';
 
 const App: React.FC = () => {
     return (

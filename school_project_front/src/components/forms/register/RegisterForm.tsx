@@ -4,6 +4,11 @@ import useGetAllCountries from "../../../services/getCountry/UseGetAllCountries.
 import City from "../../../types/City.tsx";
 import "./registerForm.css";
 
+interface RegisterFormProps {
+    step: number;
+    onNextStep: () => void;
+}
+
 interface FormErrors {
     username: string;
     password: string;
@@ -16,8 +21,7 @@ interface FormErrors {
     general?: string;
 }
 
-const RegisterForm: React.FC = () => {
-    const [step, setStep] = useState(1);
+const RegisterForm: React.FC<RegisterFormProps> = ({ step, onNextStep }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [firstname, setFirstname] = useState("");
@@ -129,7 +133,7 @@ const RegisterForm: React.FC = () => {
         e.preventDefault();
         if (step === 1) {
             if (validateStep1()) {
-                setStep(2);
+                onNextStep();
             }
         } else {
             if (validateStep2()) {
@@ -168,7 +172,7 @@ const RegisterForm: React.FC = () => {
                             {errors.password && <div className="invalid">{errors.password}</div>}
                         </label>
                     </div>
-                    <button type="button" onClick={() => { if (validateStep1()) setStep(2); }}>Next</button>
+                    <button type="button" onClick={() => { if (validateStep1()) onNextStep(); }}>Next</button>
                 </>
             )}
             {step === 2 && (
@@ -247,17 +251,16 @@ const RegisterForm: React.FC = () => {
                         </label>
                     </div>
                     <div className={"form-input-registerform"}>
-                        <label>
-                            <input
-                                placeholder={"Birthdate :"}
-                                type="date"
-                                id="birthdate"
-                                value={birthdate}
-                                onChange={(e) => setBirthdate(e.target.value)}
-                                required
-                            />
-                            {errors.birthdate && <div className="invalid">{errors.birthdate}</div>}
-                        </label>
+                        <label className={"label"}>Birthdate</label>
+                        <input
+                            placeholder={"Birthdate :"}
+                            type="date"
+                            id="birthdate"
+                            value={birthdate}
+                            onChange={(e) => setBirthdate(e.target.value)}
+                            required
+                        />
+                        {errors.birthdate && <div className="invalid">{errors.birthdate}</div>}
                     </div>
                     <div className={"form-input-registerform radio"}>
                         <label className={"label"}>Gender</label>
@@ -304,6 +307,6 @@ const RegisterForm: React.FC = () => {
             )}
         </form>
     );
-}
+};
 
 export default RegisterForm;

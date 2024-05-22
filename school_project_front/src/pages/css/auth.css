@@ -66,3 +66,15 @@
     justify-content: center;
     align-items: center;
 }
+
+.choice-button-register {
+    background-color: #FC6E2B;
+    color: white;
+    text-transform: uppercase;
+}
+
+.choice-button-login {
+    background-color: #F2F2F2;
+    color: #FC6E2B;
+    text-transform: uppercase;
+}
