@@ -81,13 +81,13 @@ const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents})
             setMessage({type: "success", text: "You have successfully joined the event."});
             setTimeout(() => {
                 setMessage(null);
-            }, 3000);
+            }, 2000);
         } catch (error) {
             console.error('Error joining event:', error);
             setMessage({type: "error", text: "Error joining the event. Please try again later."});
             setTimeout(() => {
                 setMessage(null);
-            }, 3000);
+            }, 2000);
         }
     };
 
@@ -101,13 +101,13 @@ const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents})
             }
             setTimeout(() => {
                 setMessage(null);
-            }, 3000);
+            }, 2000);
         } catch (error) {
             console.error('Error leaving event:', error);
             setMessage({type: "error", text: "Error leaving the event. Please try again later."});
             setTimeout(() => {
                 setMessage(null);
-            }, 3000);
+            }, 2000);
         }
     };
 

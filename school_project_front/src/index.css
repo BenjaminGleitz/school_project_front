@@ -19,6 +19,7 @@ body {
     min-width: 320px;
     min-height: 100vh;
     font-family: 'Satoshi-Bold', sans-serif;
+    color: #00385C;
 }
 
 .neuly {
@@ -50,6 +51,7 @@ button {
     font-weight: 500;
     font-family: inherit;
     background-color: #1a1a1a;
+    color: #0F395A;
     cursor: pointer;
     transition: border-color 0.25s;
 }
