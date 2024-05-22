@@ -63,7 +63,7 @@ const Filters: React.FC<FiltersProps> = ({onFilterSubmit}) => {
     };
 
     return (
-        <div className="filters">
+        <div className="filters-page">
             <div className="filter-input">
                 <div className="country-filter">
                     <select
@@ -115,11 +115,11 @@ const Filters: React.FC<FiltersProps> = ({onFilterSubmit}) => {
                     />
                 </div>
             </div>
-            <div className="filter-button">
-                <div className="reset-button">
+            <div className="filter-button-filter">
+                <div className="reset-button-filter">
                     <button onClick={handleReset}>Reset</button>
                 </div>
-                <div className="submit-button">
+                <div className="submit-button-filter">
                     <button onClick={handleSubmit}>Apply</button>
                 </div>
             </div>

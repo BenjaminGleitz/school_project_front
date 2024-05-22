@@ -17,7 +17,7 @@ const MyEventsCreated: React.FC = () => {
     }
 
     return (
-        <div className="my-events-created">
+        <div className="my-events-created content">
             <h2>My Events Created</h2>
             {events.length === 0 ? (
                 <div>No events created yet.</div>

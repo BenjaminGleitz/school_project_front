@@ -124,8 +124,8 @@ const CreateEventForm: React.FC = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} noValidate>
-            <div className={"form-input"}>
+        <form className={"create-event"} onSubmit={handleSubmit} noValidate>
+            <div className={"form-input-event"}>
                 <label>
                     <input
                         placeholder={formSubmitted && !formData.title ? titleError : "Title : "}
@@ -138,7 +138,7 @@ const CreateEventForm: React.FC = () => {
                     />
                 </label>
             </div>
-            <div className={"form-input"}>
+            <div className={"form-input-event"}>
                 <label>
                     <textarea
                         placeholder={formSubmitted && !formData.description ? descriptionError : "Description : "}
@@ -150,7 +150,7 @@ const CreateEventForm: React.FC = () => {
                     />
                 </label>
             </div>
-            <div className={"form-input"}>
+            <div className={"form-input-event"}>
                 <label>
                     <input
                         placeholder={formSubmitted && !formData.start_at ? startAtError : "Start Date : "}
@@ -164,7 +164,7 @@ const CreateEventForm: React.FC = () => {
                     {startAtError && <p className="error-message future-date">{startAtError}</p>}
                 </label>
             </div>
-            <div className={"form-input"}>
+            <div className={"form-input-event"}>
                 <label>
                     <select
                         value={selectedCountry}
@@ -184,11 +184,11 @@ const CreateEventForm: React.FC = () => {
                 </label>
             </div>
             {selectedCountry && (
-                <div className={"form-input"}>
+                <div className={"form-input-event"}>
                     <label>
                         <select
                             value={formData.city_id}
-                            onChange={(e) => setFormData({ ...formData, city_id: parseInt(e.target.value) })}
+                            onChange={(e) => setFormData({...formData, city_id: parseInt(e.target.value)})}
                             required
                             className={formSubmitted && !formData.city_id ? 'invalid' : ''}
                         >
@@ -206,11 +206,11 @@ const CreateEventForm: React.FC = () => {
                     </label>
                 </div>
             )}
-            <div className={"form-input"}>
+            <div className={"form-input-event"}>
                 <label>
                     <select
                         value={formData.category_id}
-                        onChange={(e) => setFormData({ ...formData, category_id: parseInt(e.target.value) })}
+                        onChange={(e) => setFormData({...formData, category_id: parseInt(e.target.value)})}
                         required
                         className={formSubmitted && !formData.category_id ? 'invalid' : ''}
                     >
@@ -225,7 +225,7 @@ const CreateEventForm: React.FC = () => {
                     </select>
                 </label>
             </div>
-            <div className={"form-input"}>
+            <div className={"form-input-event"}>
                 <label>
                     <input
                         placeholder={"Participant Limit : (don't fill if no limit)"}
@@ -236,7 +236,7 @@ const CreateEventForm: React.FC = () => {
                     />
                 </label>
             </div>
-            {showModal && message && <Message type={message.type} text={message.text} />}
+            {showModal && message && <Message type={message.type} text={message.text}/>}
             <button type="submit">Create Event</button>
         </form>
     );

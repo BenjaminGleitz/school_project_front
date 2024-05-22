@@ -22,7 +22,7 @@ const LoginForm: React.FC = () => {
         <form onSubmit={handleLogin}>
             <div className={"form-input"}>
                 <input
-                    placeholder={" Email : "}
+                    placeholder={" Email "}
                     type="text"
                     id="username"
                     value={username}
@@ -31,7 +31,7 @@ const LoginForm: React.FC = () => {
             </div>
             <div className={"form-input"}>
                 <input
-                    placeholder={" Password : "}
+                    placeholder={" Password "}
                     type="password"
                     id="password"
                     value={password}
@@ -39,7 +39,7 @@ const LoginForm: React.FC = () => {
                 />
             </div>
             {error && <div>{error}</div>}
-            <button type="submit">Log In</button>
+            <button className={"btn-login"} type="submit">Log In</button>
         </form>
     );
 };

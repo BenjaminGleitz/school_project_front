@@ -7,8 +7,6 @@ import useGetOneEvent from "../../../services/getEvent/UseGetOneEvent.tsx";
 import useUpdateEvent from "../../../services/getEvent/UseUpdateEvent.tsx";
 import { useUser } from "../../../contexts/UserContext.tsx";
 import Loader from "../../loader/Loader.tsx";
-import "./createEventForm.css";
-import "./updateEvent.css";
 
 const UpdateEventForm: React.FC = () => {
     const { eventId } = useParams<{ eventId: string }>();

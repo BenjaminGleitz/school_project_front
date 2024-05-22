@@ -71,7 +71,7 @@ const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents})
             timeZone: "UTC"
         };
 
-        return new Date(dateString).toLocaleString("fr-FR", options);
+        return new Date(dateString).toLocaleString("en-EN", options);
     };
 
     const handleJoinEvent = async () => {

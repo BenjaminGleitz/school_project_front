@@ -23,6 +23,7 @@
     background-color: #0F395A;
     padding: 10px;
     border: 2px solid white;
+    color: white;
 }
 
 .modal-content select {
@@ -31,6 +32,8 @@
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    background-color: white;
+    color: #0F395A;
 }
 
 .filter-input {
@@ -38,7 +41,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
 }
 
 .filter-button {
@@ -61,21 +63,16 @@
     width: 150px;
 }
 
-button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
+button[type="button"] {
+    background-color: white;
+    border-radius: 35px;
+    color: #FC6E2B;
     margin-top: 10px;
 }
 
-button[type="button"] {
-    background-color: #f44336;
+button[type="submit"] {
+    background-color: #FC6E2B;
+    border-radius: 35px;
     color: white;
     margin-top: 10px;
 }

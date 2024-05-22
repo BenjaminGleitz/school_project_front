@@ -1,13 +1,10 @@
 .navbar {
     margin: 20px;
-    border-bottom: 1px solid #e9ecef;
-    border-radius: 15px;
     padding: 10px;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ED6E33;
 }
 
 .navbar-logo {
@@ -47,7 +44,7 @@
     display: block;
     width: 100%;
     height: 4px;
-    background-color: white;
+    background-color: #ED6E33;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -63,6 +60,23 @@
     transform: translateY(-10px) rotate(-45deg);
 }
 
+/* Arrière-plan rouge autour de l'overlay */
+.overlay-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.overlay-background.active {
+    opacity: 1;
+}
+
 /* Animation pour l'overlay */
 .overlay {
     position: fixed;
@@ -70,9 +84,9 @@
     flex-direction: column;
     top: 50%;
     left: 50%;
-    width: 70%;
+    width: 85%;
     height: 70%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(245, 246, 246); /* Ajout de transparence */
     justify-content: center;
     align-items: center;
     border-radius: 10px;
@@ -80,6 +94,22 @@
     padding: 20px;
     transform: translate(-50%, -50%) scale(0);
     transition: transform 0.3s ease;
+    border: #0F395A solid 2px;
+}
+
+.overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../assets/images/menu.png");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3; /* Ajustez l'opacité selon vos besoins */
+    border-radius: 10px;
+    z-index: -1;
 }
 
 .overlay.active {
@@ -87,21 +117,21 @@
 }
 
 .overlay button {
-    background-color: #ED6E33;
-    color: white;
+    background-color: white;
+    color: #00385C;
+    font-weight: bold;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     margin-top: 20px;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.8); /* Ajout de l'ombre */
 }
 
 .close-menu-btn {
     position: absolute;
     top: 10px;
     right: 10px;
-    color: white;
-    font-size: 1rem;
     cursor: pointer;
 }
 
@@ -127,4 +157,9 @@
     .navbar-toggle {
         display: none;
     }
+}
+
+.navbar-items a.active,
+.overlay button.active {
+    color: #ED6E33;
 }

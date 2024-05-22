@@ -3,6 +3,9 @@ import City from "./City.tsx";
 interface User {
     id: number;
     email: string;
+    gender: string;
+    nationality: string;
+    birthdate: string;
     roles: string[];
     eventsCreated: Event[];
     events: Event[];
