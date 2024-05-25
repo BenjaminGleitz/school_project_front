@@ -5,12 +5,25 @@
     width: 95%;
 }
 
+.event-cards-home {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
 .btn-group {
     display: flex;
     width: 90%;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+}
+
+.btn-group button {
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.4);
 }
 
 .events-list ul {
@@ -19,15 +32,16 @@
     padding: 0;
 }
 
-.filters {
+.filters-page {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 20px 0;
-    background-color: #ED6E33;
+    background-color: #0F395A;
     padding: 10px;
     border-radius: 10px;
+    width: 80%;
 }
 
 .filter-input {
@@ -35,29 +49,52 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
 }
 
-.filter-button {
+.filter-button-filter {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     height: 100%;
+    width: 100%;
 }
 
-.filters select, .filters input {
+.filters-page select, .filters-page input {
     margin: 10px 0;
-    width: 160px;
+    width: 200px;
     padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #0F395A;
+    border-bottom: white solid 2px;
+    background-color: #0F395A;
+    color: white;
 }
 
-.filters input {
-    width: 150px;
+.filters-page input {
+    width: 190px;
+}
+
+.filter-button-filter button {
+    margin: 5px 0;
+    background-color: #DDDDDD;
 }
 
 .toggle-filter, .create-event-button {
     margin: 5px 0;
+    background-color: #DDDDDD;
+}
+
+.reset-button-filter button, .submit-button-filter button {
+    border-radius: 35px;
+    border: solid 1px #FC6E2B;
+}
+
+.reset-button-filter button {
+    background-color: #0F395A;
+    color: white;
+}
+
+.submit-button-filter button {
+    background-color: #FC6E2B;
+    color: white;
 }

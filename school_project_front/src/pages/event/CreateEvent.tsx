@@ -4,8 +4,8 @@ import '../css/createEvent.css';
 
 const CreateEvent: React.FC = () => {
     return (
-        <div className={"form-container"}>
-            <h1>Create Event</h1>
+        <div className={"form-container-create"}>
+            <h1 className={"neuly"}>Create Event</h1>
             <CreateEventForm />
         </div>
     );

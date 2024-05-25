@@ -15,10 +15,47 @@
     background-color: white;
     border-radius: 10px;
     width: 90%;
-    height: 80%;
     max-width: 800px;
     max-height: 600px;
     overflow: auto;
+    padding: 0 0 20px 0;
+}
+
+.eventDescription {
+    border-radius: 35px 35px 0 0;
+}
+
+.eventInformations {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.eventLocation {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+.eventDescription h2 {
+    text-decoration: underline;
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+.eventDescription p {
+    font-size: 12px;
+    margin: 0 10px;
+}
+
+.eventTextDescription {
+    margin: 20px 0;
+    text-align: justify;
+}
+
+.creator {
+    padding: 0 0 20px 0;
 }
 
 .close {
@@ -30,13 +67,15 @@
 
 .closeButton {
     background-color: white;
-    color: #DC3545;
-    border: 1px solid #DC3545;
+    color: #FC6E2B;
+    border: 1px solid #FC6E2B;
     margin: 10px 0;
+    border-radius: 35px;
 }
 
 .deleteButton {
-    background-color: #DC3545;
+    background-color: #FC6E2B;
+    border-radius: 35px;
     color: white;
     margin-right: 10px;
 }
@@ -52,7 +91,10 @@
 }
 
 .event-modal-title {
-    background-color: #ED6E33;
+    min-height: 200px;
+    background-size: cover;
+    background-position: center;
+    text-shadow: 2px 2px 4px #0F395A;
 }
 
 .eventCategory {
@@ -66,11 +108,20 @@
 .eventTitle {
     display: flex;
     justify-content: center;
-    color: #0F395A;
+    color: white;
+    font-size: 20px;
 }
 
-.showParticipantsButton, .updateEventButton {
-    background-color: #0F395A;
+.showParticipantsButton, .updateEventButton, .joinButton, .leaveButton {
     color: white;
     margin-right: 10px;
+    border-radius: 35px;
+}
+
+.showParticipantsButton {
+    background-color: #00385C;
+}
+
+.updateEventButton, .joinButton, .leaveButton {
+    background-color: #FC6E2B;
 }

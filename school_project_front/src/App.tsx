@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/user/Profile';
@@ -13,28 +13,41 @@ import UpdateEvent from './pages/event/UpdateEvent';
 import ChangeLocationUser from './pages/user/ChangeLocationUser';
 import Home from './pages/Home';
 import MyEventsParticipation from "./pages/user/EventsPartcipation.tsx";
+import Auth from "./pages/Auth.tsx";
+import './assets/fonts/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/css/satoshi.css';
 
 const App: React.FC = () => {
     return (
         <UserProvider>
             <BrowserRouter>
-                <div id="top"></div>
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<Navigate to="/login" replace />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/profile/update" element={<UpdateUser />} />
-                    <Route path="/change-location" element={<ChangeLocationUser />} />
-                    <Route path="/my-events" element={<MyEventsCreated />} />
-                    <Route path="/my-participation" element={<MyEventsParticipation />} />
-                    <Route path="/create-event" element={<CreateEvent />} />
-                    <Route path="/update-event/:eventId" element={<UpdateEvent />} />
-                </Routes>
+                <Content />
             </BrowserRouter>
         </UserProvider>
+    );
+};
+
+const Content: React.FC = () => {
+    const location = useLocation();
+    const hideNavbarPaths = ['/', '/login', '/register'];
+
+    return (
+        <>
+            <div id="top"></div>
+            {!hideNavbarPaths.includes(location.pathname) && <Navbar />}
+            <Routes>
+                <Route path="/" element={<Auth />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/update" element={<UpdateUser />} />
+                <Route path="/change-location" element={<ChangeLocationUser />} />
+                <Route path="/my-events" element={<MyEventsCreated />} />
+                <Route path="/my-participation" element={<MyEventsParticipation />} />
+                <Route path="/create-event" element={<CreateEvent />} />
+                <Route path="/update-event/:eventId" element={<UpdateEvent />} />
+            </Routes>
+        </>
     );
 };
 

@@ -11,10 +11,37 @@
     z-index: 1000;
 }
 
-.modal-content {
+.modal-white {
+    background-color: #F5F6F6;
     border-radius: 10px;
     width: 300px;
-    max-width: 90%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    color: white;
+}
+
+.modal-image {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../../assets/images/menu_transparent.png");
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.modal-content {
+    border-radius: 10px;
+    width: 80%;
+    height: 89%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,7 +49,7 @@
     margin: 20px 0;
     background-color: #0F395A;
     padding: 10px;
-    border: 2px solid white;
+    color: white;
 }
 
 .modal-content select {
@@ -31,6 +58,8 @@
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    background-color: white;
+    color: #0F395A;
 }
 
 .filter-input {
@@ -38,7 +67,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
 }
 
 .filter-button {
@@ -61,23 +89,24 @@
     width: 150px;
 }
 
-button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+button[type="button"] {
+    background-color: white;
+    border-radius: 35px;
+    color: #FC6E2B;
+    margin-top: 10px;
 }
 
 button[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #FC6E2B;
+    border-radius: 35px;
     color: white;
     margin-top: 10px;
 }
 
-button[type="button"] {
-    background-color: #f44336;
-    color: white;
-    margin-top: 10px;
+.registerSubmit:hover {
+    background-color: white;
+    color: #FC6E2B;
+    border: #FC6E2B 1px solid;
 }
 
 .error-message {
