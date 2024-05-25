@@ -68,7 +68,7 @@ const EventsList: React.FC = () => {
                 {filteredEvents.length === 0 ? (
                     <div>No events available with your filter</div>
                 ) : (
-                    <div className="event-cards">
+                    <div className="event-cards event-cards-home">
                         {filteredEvents.map(event => (
                             <EventCard key={event.id} event={event}/>
                         ))}

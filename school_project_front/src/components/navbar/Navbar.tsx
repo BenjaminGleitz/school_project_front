@@ -43,13 +43,18 @@ const Navbar: React.FC = () => {
         window.location.href = "/my-participation";
     };
 
+    const isProfilePage = location.pathname === "/profile";
+
     return (
-        <nav className="navbar">
+        <nav className={`navbar ${isProfilePage ? 'navbar-profile' : ''}`}>
             <div className="navbar-logo" onClick={goToHome}>
                 <img className="logo" src={logo} alt="Logo de l'entreprise" />
             </div>
             <div className={`navbar-items ${showNav ? "active" : ""}`}>
                 <a href="/home" className={location.pathname === "/home" ? "active" : ""}>Home</a>
+                {currentUser && <a href="/profile" className={location.pathname === "/profile" ? "active" : ""}>My Profile</a>}
+                {currentUser && <a href="/my-events" className={location.pathname === "/my-events" ? "active" : ""}>My Events</a>}
+                {currentUser && <a href="/my-participation" className={location.pathname === "/my-participation" ? "active" : ""}>My Participation</a>}
                 <a href="#top">&#8593;</a>
             </div>
             <div className={`navbar-toggle ${showNav ? "active" : ""}`} onClick={toggleNav}>

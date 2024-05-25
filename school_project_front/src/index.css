@@ -56,6 +56,13 @@ button {
     transition: border-color 0.25s;
 }
 
+.my-events-created, .event-cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 button:hover {
     border-color: #646cff;
 }

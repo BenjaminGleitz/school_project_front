@@ -36,7 +36,7 @@ const Login: React.FC = () => {
                 <button className="back-button" onClick={() => navigate(-1)}><IoChevronBack /></button>
                 <img className="logo-return" src={logo} alt="Logo de l'entreprise"/>
             </div>
-            <div className={"form-container"}>
+            <div className={"form-container login"}>
                 <div className={"form-title"}>
                     <h1>Login</h1>
                 </div>

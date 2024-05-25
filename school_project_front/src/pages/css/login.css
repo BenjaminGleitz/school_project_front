@@ -52,3 +52,32 @@ a {
     color: #FC6E2B;
     text-decoration: none;
 }
+
+@media screen and (min-width: 600px) {
+
+    .header{
+        width: 50%;
+    }
+    .login .form-title {
+        width: 40%;
+    }
+
+    .login form {
+        width: 50%;
+    }
+
+    .form-input-registerform {
+        margin-bottom: 0px;
+    }
+
+    .next {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+
+    .header, .form-container {
+        width: 50%;
+    }
+}

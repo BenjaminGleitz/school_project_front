@@ -103,6 +103,12 @@ button[type="submit"] {
     margin-top: 10px;
 }
 
+.registerSubmit:hover {
+    background-color: white;
+    color: #FC6E2B;
+    border: #FC6E2B 1px solid;
+}
+
 .error-message {
     color: red;
     font-size: 0.9em;

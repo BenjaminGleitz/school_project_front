@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./css/eventModal.css";
 import useGetOneEvent from "../../services/getEvent/UseGetOneEvent.tsx";
 import Event from "../../types/Event";
-import {getUserId} from "../../services/authentication/TokenLocalStorageService";
+import { getUserId } from "../../services/authentication/TokenLocalStorageService";
 import useAddParticipantToEvent from "../../services/getEvent/UseAddParticipantToEvent.tsx";
 import useRemoveParticipantFromEvent from "../../services/getEvent/UseRemoveParticipantFromEvent";
 import Message from "../messages/Message.tsx";
 import Loader from "../loader/Loader.tsx";
 import useGetEventParticipants from "../../services/getEvent/UseGetEventParticipants.tsx";
 import User from "../../types/User";
-import {MdDateRange} from "react-icons/md";
-import {ImLocation} from "react-icons/im";
+import { MdDateRange } from "react-icons/md";
+import { ImLocation } from "react-icons/im";
 import useDeleteOneEvent from "../../services/getEvent/UseDeleteOneEvent.tsx";
 
 interface EventModalProps {
@@ -19,7 +19,7 @@ interface EventModalProps {
     setEvents?: React.Dispatch<React.SetStateAction<Event[]>>;
 }
 
-const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents}) => {
+const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents }) => {
     const [event, setEvent] = useState<Event | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [isParticipant, setIsParticipant] = useState(false);
@@ -29,8 +29,8 @@ const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents})
     const [showParticipants, setShowParticipants] = useState(false);
     const getEventById = useGetOneEvent();
     const userIdFromToken = getUserId();
-    const {addParticipantToEvent} = useAddParticipantToEvent();
-    const {removeParticipantFromEvent} = useRemoveParticipantFromEvent();
+    const { addParticipantToEvent } = useAddParticipantToEvent();
+    const { removeParticipantFromEvent } = useRemoveParticipantFromEvent();
     const getEventParticipants = useGetEventParticipants();
     const deleteOneEvent = useDeleteOneEvent();
 
@@ -74,17 +74,21 @@ const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents})
         return new Date(dateString).toLocaleString("en-EN", options);
     };
 
+    const getBackgroundImage = (category: string): string => {
+        return new URL(`../../assets/images/categories/${category}.jpg`, import.meta.url).href;
+    };
+
     const handleJoinEvent = async () => {
         try {
             await addParticipantToEvent(eventId);
             setIsParticipant(true);
-            setMessage({type: "success", text: "You have successfully joined the event."});
+            setMessage({ type: "success", text: "You have successfully joined the event." });
             setTimeout(() => {
                 setMessage(null);
             }, 2000);
         } catch (error) {
             console.error('Error joining event:', error);
-            setMessage({type: "error", text: "Error joining the event. Please try again later."});
+            setMessage({ type: "error", text: "Error joining the event. Please try again later." });
             setTimeout(() => {
                 setMessage(null);
             }, 2000);
@@ -95,7 +99,7 @@ const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents})
         try {
             await removeParticipantFromEvent(eventId);
             setIsParticipant(false);
-            setMessage({type: "success", text: "You have successfully left the event."});
+            setMessage({ type: "success", text: "You have successfully left the event." });
             if (setEvents) {
                 setEvents(prevEvents => prevEvents.filter(event => event.id !== eventId));
             }
@@ -104,7 +108,7 @@ const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents})
             }, 2000);
         } catch (error) {
             console.error('Error leaving event:', error);
-            setMessage({type: "error", text: "Error leaving the event. Please try again later."});
+            setMessage({ type: "error", text: "Error leaving the event. Please try again later." });
             setTimeout(() => {
                 setMessage(null);
             }, 2000);
@@ -113,19 +117,19 @@ const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents})
 
     const handleGetEventParticipants = async () => {
         try {
-            const {participants} = await getEventParticipants(eventId);
+            const { participants } = await getEventParticipants(eventId);
             if (participants) {
                 setParticipants(participants);
                 setShowParticipants(true);
             } else {
-                setMessage({type: "error", text: "Error getting participants."});
+                setMessage({ type: "error", text: "Error getting participants." });
             }
             setTimeout(() => {
                 setMessage(null);
             }, 3000);
         } catch (error) {
             console.error('Error getting participants:', error);
-            setMessage({type: "error", text: "Error getting participants. Please try again later."});
+            setMessage({ type: "error", text: "Error getting participants. Please try again later." });
             setTimeout(() => {
                 setMessage(null);
             }, 3000);
@@ -164,15 +168,13 @@ const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents})
         }
     };
 
-
     return (
         <div className="event-modal">
             <div className="event-modal-content">
-                {isCreator && <button className={"deleteButton"} onClick={handleDeleteEvent}>Delete</button>}
-                <button className={"closeButton"} onClick={closeModal}>Close</button>
-                {message && <Message type={message.type} text={message.text}/>}
+
+                {message && <Message type={message.type} text={message.text} />}
                 {loading ? (
-                    <Loader/>
+                    <Loader />
                 ) : showParticipants ? (
                     <>
                         <button onClick={handleBackToEventDetails}>Back to Event Details</button>
@@ -189,22 +191,29 @@ const EventModal: React.FC<EventModalProps> = ({eventId, closeModal, setEvents})
                     </>
                 ) : event ? (
                     <>
-                        <div className="event-modal-title">
+                        <div className="event-modal-title"
+                             style={{ backgroundImage: event ? `url(${getBackgroundImage(event.category.title)})` : 'none' }}>
+                            {isCreator && <button className={"deleteButton"} onClick={handleDeleteEvent}>Delete</button>}
+                            <button className={"closeButton"} onClick={closeModal}>Close</button>
                             <div className="eventCategory">
                                 <p>{event.category.title}</p>
                             </div>
-                            <div className="eventTitle">
-                                <h2>{event.title}</h2>
-                            </div>
                         </div>
                         <div className="eventDescription">
-                            <p>{event.description}</p>
-                            <p><MdDateRange/> {formatDate(event.start_at)}</p>
-                            <p><ImLocation/> {event.city.country.name}, </p>
-                            <p>{event.city.name}</p>
-                            <p>Created by {event.creator.firstname} {event.creator.lastname}</p>
-                            <p>Participant limit: {event.participantLimit !== null && event.participantLimit}</p>
-                            {isCreator && <p>You are the event's creator.</p>}
+                            <div className={"eventInformations"}>
+                                <h2>{event.title}</h2>
+                                <p>{event.participant.length} out
+                                    of {event.participantLimit !== null ? event.participantLimit : "unlimited"} participants</p>
+                                {isCreator && <p>You are the event's creator.</p>}
+                            </div>
+                            <div className={"eventLocation"}>
+                                <p><MdDateRange/> {formatDate(event.start_at)}</p>
+                                <p><ImLocation/> {event.city.country.name}, {event.city.name}</p>
+                            </div>
+                            <div className={"eventTextDescription"}>
+                                <p>{event.description}</p>
+                            </div>
+                            <p className={"creator"}>Created by {event.creator.firstname} {event.creator.lastname}</p>
                         </div>
                         {isCreator &&
                             <button className={"updateEventButton"} onClick={() => {

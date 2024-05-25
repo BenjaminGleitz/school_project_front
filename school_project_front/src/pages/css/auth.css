@@ -15,9 +15,7 @@
 }
 
 .container {
-    display: flex;
     height: 50%;
-    width: 100%;
     align-items: center;
 }
 
@@ -77,4 +75,26 @@
     background-color: #F2F2F2;
     color: #FC6E2B;
     text-transform: uppercase;
+}
+
+@media screen and (min-width: 600px) {
+
+    .logo-container, .choice-container {
+        width: 70%;
+    }
+
+    .choice-container p {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+
+    .logo-container, .choice-container {
+        width: 50%;
+    }
+
+    .choice-container p {
+        font-size: 14px;
+    }
 }

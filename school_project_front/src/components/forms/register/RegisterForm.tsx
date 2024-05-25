@@ -172,7 +172,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ step, onNextStep }) => {
                             {errors.password && <div className="invalid">{errors.password}</div>}
                         </label>
                     </div>
-                    <button type="button" onClick={() => { if (validateStep1()) onNextStep(); }}>Next</button>
+                    <button className={"next"} type="button" onClick={() => { if (validateStep1()) onNextStep(); }}>Next</button>
                 </>
             )}
             {step === 2 && (
@@ -302,7 +302,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ step, onNextStep }) => {
                         {errors.gender && <div className="invalid">{errors.gender}</div>}
                     </div>
                     {errors.general && <div className="invalid">{errors.general}</div>}
-                    <button type="submit">Submit</button>
+                    <button className={'registerSubmit'} type="submit">Submit</button>
                 </>
             )}
         </form>

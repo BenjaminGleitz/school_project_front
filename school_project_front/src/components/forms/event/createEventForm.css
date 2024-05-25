@@ -151,3 +151,28 @@ form {
     padding: 0;
 }
 
+@media screen and (min-width: 600px) {
+
+    .header-register{
+        width: 50%;
+    }
+    .form-container-register {
+        width: 50%;
+    }
+
+    .form-input-registerform {
+        margin-bottom: 0px;
+    }
+
+    .next {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+
+    .header-register, .form-container-register {
+        width: 50%;
+    }
+}
+
