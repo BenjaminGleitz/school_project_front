@@ -10,7 +10,7 @@ const useGetEventsParticipationByCurrentUser = () => {
 
     const getEvents = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/event/my/participations/', {
+            const response = await axios.get('https://toogether.uno/api/event/my/participations/', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

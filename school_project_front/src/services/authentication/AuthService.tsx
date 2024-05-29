@@ -17,7 +17,7 @@ class AuthService {
     public register(email: string, password: string, firstname: string, lastname: string, favoriteCityId: number | null, nationality: string, birthdate: string, gender: string): Promise<void> {
         console.log(favoriteCityId);
         return axios
-            .post("http://127.0.0.1:8000/userRegister", {
+            .post("https://toogether.uno/userRegister", {
                 email: email,
                 password: password,
                 firstname: firstname,
@@ -38,7 +38,7 @@ class AuthService {
 
     public login(email: string, password: string): Promise<void> {
         return axios
-            .post("http://127.0.0.1:8000/api/login_check", {
+            .post("https://toogether.uno/api/login_check", {
                 email: email,
                 password: password
             })

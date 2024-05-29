@@ -11,7 +11,7 @@ const useUpdateConnectedUser = () => {
             if (!userId) {
                 return null;
             }
-            const response = await axios.patch(`http://127.0.0.1:8000/api/user/${userId}`, {
+            const response = await axios.patch(`https://toogether.uno/api/user/${userId}`, {
                 ...updatedUser,
                 favoriteCity: updatedUser.favoriteCity ? updatedUser.favoriteCity.id : null
             }, {
