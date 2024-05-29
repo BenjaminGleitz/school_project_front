@@ -14,6 +14,8 @@ interface User {
     createdAt: string;
     updatedAt: string | null;
     favoriteCity: City | null;
+    image: string | null;
+    description: string | null;
 }
 
 export default User;
