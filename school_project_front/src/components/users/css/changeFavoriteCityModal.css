@@ -20,8 +20,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid white;
-    color: white;
+    border: 2px solid #FFF6EE;
+    color: #FFF6EE;
 }
 
 .modal-image {
@@ -35,7 +35,7 @@
     background-image: url("../../../assets/images/menu_transparent.png");
     background-size: cover;
     background-position: center;
-    color: white;
+    color: #FFF6EE;
 }
 
 .modal-content {
@@ -49,7 +49,7 @@
     margin: 20px 0;
     background-color: #0F395A;
     padding: 10px;
-    color: white;
+    color: #FFF6EE;
 }
 
 .modal-content select {
@@ -58,7 +58,7 @@
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    background-color: white;
+    background-color: #FFF6EE;
     color: #0F395A;
 }
 
@@ -90,7 +90,7 @@
 }
 
 button[type="button"] {
-    background-color: white;
+    background-color: #FFF6EE;
     border-radius: 35px;
     color: #FC6E2B;
     margin-top: 10px;
@@ -99,12 +99,12 @@ button[type="button"] {
 button[type="submit"] {
     background-color: #FC6E2B;
     border-radius: 35px;
-    color: white;
+    color: #FFF6EE;
     margin-top: 10px;
 }
 
 .registerSubmit:hover {
-    background-color: white;
+    background-color: #FFF6EE;
     color: #FC6E2B;
     border: #FC6E2B 1px solid;
 }

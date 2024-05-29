@@ -31,15 +31,10 @@ class AuthService {
         }
 
         return axios
-            .post("https://toogether.uno/userRegister", {
-                email: email,
-                password: password,
-                firstname: firstname,
-                lastname: lastname,
-                favoriteCity: favoriteCityId,
-                nationality: nationality,
-                birthdate: birthdate,
-                gender: gender
+            .post("https://toogether.uno/userRegister", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             })
             .then((response) => {
                 console.log("User registered:", response);

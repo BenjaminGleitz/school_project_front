@@ -7,7 +7,7 @@
 
 .profile-detail h1 {
     font-size: 2.5em;
-    color: white;
+    color: #FFF6EE;
 }
 
 .profile-container {
@@ -35,7 +35,7 @@
 }
 
 .profile-items-values_image {
-    border: #00385C 2px solid;
+    border: #00334F 2px solid;
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -118,6 +118,6 @@
 
 .profile-page {
     height: 90%;
-    background-color: #00385C;
+    background-color: #00334F;
     margin-top: -1px;
 }

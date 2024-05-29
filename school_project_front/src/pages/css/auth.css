@@ -7,11 +7,11 @@
     height: 100%;
     margin-top: -1px;
     background-color: #0F395A;
-    color: white;
+    color: #FFF6EE;
 }
 
 .form-container input {
-    color: white;
+    color: #FFF6EE;
 }
 
 .container {
@@ -67,7 +67,7 @@
 
 .choice-button-register {
     background-color: #FC6E2B;
-    color: white;
+    color: #FFF6EE;
     text-transform: uppercase;
 }
 

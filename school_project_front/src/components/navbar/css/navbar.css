@@ -1,6 +1,6 @@
 .navbar {
     height: 10%;
-    color: white;
+    color: #FFF6EE;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -44,7 +44,7 @@
     display: block;
     width: 100%;
     height: 4px;
-    background-color: #ED6E33;
+    background-color: #FC6E2B;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -116,7 +116,7 @@
 
 .overlay button {
     background-color: white;
-    color: #00385C;
+    color: #00334F;
     font-weight: bold;
     padding: 10px 20px;
     border: none;
@@ -148,7 +148,7 @@
     }
 
     .navbar-items a {
-        color: white;
+        color: #FFF6EE;
         text-decoration: none;
         margin-right: 10px;
     }
@@ -164,10 +164,10 @@
 
 .navbar-items a.active,
 .overlay button.active {
-    color: #ED6E33;
+    color: #FC6E2B;
 }
 
 /* New styles for the profile page */
 .navbar-profile {
-    background-color: #00385C;
+    background-color: #00334F;
 }

@@ -6,7 +6,7 @@
     margin: 1em;
     border-radius: 10px;
     box-shadow: 0 0 10px #000;
-    color: #00385C;
+    color: #00334F;
     height: 200px;
     width: 80%;
     background-size: cover;
@@ -26,14 +26,14 @@
     margin: 20px 0 0 20px;
     padding: 5px;
     border-radius: 10px;
-    background-color: #00385C;
-    box-shadow: 0 0 5px white;
+    background-color: #00334F;
+    box-shadow: 0 0 5px #FFF6EE;
 }
 
 .event-card-main-info p {
     display: flex;
     margin: 0;
-    color: white;
+    color: #FFF6EE;
     font-style: italic;
 }
 

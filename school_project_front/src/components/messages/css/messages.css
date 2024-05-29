@@ -13,7 +13,7 @@
 .message {
     position: relative;
     padding: 20px;
-    background-color: white;
+    background-color: #FFF6EE;
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     max-width: 300px;
@@ -41,7 +41,7 @@
 }
 
 .message-back {
-    background-color: white;
+    background-color: #FFF6EE;
     border-radius: 15px;
     height: 100%;
     width: 100%;
@@ -58,17 +58,17 @@
 }
 
 .message-back p {
-    color: #ED6E33;
+    color: #FC6E2B;
     font-size: 1.5em;
 }
 
 .message.success {
     border-color: #FC6E2B;
-    color: white;
+    color: #FFF6EE;
 }
 
 .message.error {
     background-color: #dc3545; /* Rouge */
     border-color: #dc3545;
-    color: white; /* Rouge */
+    color: #FFF6EE; /* Rouge */
 }

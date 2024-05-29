@@ -65,9 +65,9 @@
     width: 200px;
     padding: 5px;
     border: 1px solid #0F395A;
-    border-bottom: white solid 2px;
+    border-bottom: #FFF6EE solid 2px;
     background-color: #0F395A;
-    color: white;
+    color: #FFF6EE;
 }
 
 .filters-page input {
@@ -91,10 +91,10 @@
 
 .reset-button-filter button {
     background-color: #0F395A;
-    color: white;
+    color: #FFF6EE;
 }
 
 .submit-button-filter button {
     background-color: #FC6E2B;
-    color: white;
+    color: #FFF6EE;
 }
