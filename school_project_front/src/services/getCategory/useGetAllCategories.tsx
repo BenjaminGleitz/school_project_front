@@ -9,7 +9,7 @@ const useGetAllCategories = () => {
 
     const getCategories = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/category/', {
+            const response = await axios.get('https://toogether.uno/api/category/', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

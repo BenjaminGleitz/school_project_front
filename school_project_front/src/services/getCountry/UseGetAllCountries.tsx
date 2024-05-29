@@ -7,7 +7,7 @@ const useGetAllCountries = () => {
 
     const getCountries = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/country/')
+            const response = await axios.get('https://toogether.uno/api/country/')
             setCountries(response.data);
         } catch (error) {
             console.error(error);

@@ -8,7 +8,7 @@ const useGetEventParticipants = (): (eventId: number) => Promise<{ participants:
     return async (eventId: number): Promise<{ participants: User[] | null, loading: boolean }> => {
         let loading = true;
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/event/${eventId}/participants`, {
+            const response = await axios.get(`https://toogether.uno/api/event/${eventId}/participants`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

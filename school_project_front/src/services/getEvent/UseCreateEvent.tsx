@@ -13,7 +13,7 @@ const useCreateEvent = () => {
         participantLimit: number | null;
     }): Promise<any> => {
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/api/event/`, eventData, {
+            const response = await axios.post(`https://toogether.uno/api/event/`, eventData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

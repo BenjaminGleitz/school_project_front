@@ -12,7 +12,7 @@ const useAddParticipantToEvent = () => {
         setError(null);
 
         try {
-            const response = await axios.post(`http://127.0.0.1:8000/api/event/${eventId}/participate`, {}, {
+            const response = await axios.post(`https://toogether.uno/api/event/${eventId}/participate`, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

@@ -31,10 +31,15 @@ class AuthService {
         }
 
         return axios
-            .post("http://127.0.0.1:8000/userRegister", formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+            .post("https://toogether.uno/userRegister", {
+                email: email,
+                password: password,
+                firstname: firstname,
+                lastname: lastname,
+                favoriteCity: favoriteCityId,
+                nationality: nationality,
+                birthdate: birthdate,
+                gender: gender
             })
             .then((response) => {
                 console.log("User registered:", response);
@@ -47,7 +52,7 @@ class AuthService {
 
     public login(email: string, password: string): Promise<void> {
         return axios
-            .post("http://127.0.0.1:8000/api/login_check", {
+            .post("https://toogether.uno/api/login_check", {
                 email: email,
                 password: password
             })

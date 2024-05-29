@@ -12,7 +12,7 @@ const useRemoveParticipantFromEvent = () => {
         setError(null);
 
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/event/${eventId}/remove-participation`, {
+            await axios.delete(`https://toogether.uno/api/event/${eventId}/remove-participation`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

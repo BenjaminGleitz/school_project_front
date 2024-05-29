@@ -11,7 +11,7 @@ const useGetConnectedUser = () => {
             if (!userId) {
                 return null;
             }
-            const response = await axios.get(`http://127.0.0.1:8000/api/user/${userId}`, {
+            const response = await axios.get(`https://toogether.uno/api/user/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

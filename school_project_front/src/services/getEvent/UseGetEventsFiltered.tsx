@@ -18,7 +18,7 @@ const useGetEventsFiltered = () => {
     const getFilteredEvents = useCallback(async (filters: Filters) => {
         setLoading(true);
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/event/filter/event', filters, {
+            const response = await axios.post('https://toogether.uno/api/event/filter/event', filters, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

@@ -10,7 +10,7 @@ const useGetAllEvents = () => {
 
     const getEvents = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/event/', {
+            const response = await axios.get('https://toogether.uno/api/event/', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

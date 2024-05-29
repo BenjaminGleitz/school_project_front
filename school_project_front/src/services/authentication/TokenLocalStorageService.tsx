@@ -30,5 +30,6 @@ export const getUserId = (): number | null => {
         return null;
     }
     const decodedToken: any = jwtDecode(token);
+    console.log(decodedToken)
     return decodedToken.id;
 };

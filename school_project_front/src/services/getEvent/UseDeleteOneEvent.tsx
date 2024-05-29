@@ -6,7 +6,7 @@ const useDeleteOneEvent = (): ((eventId: number) => Promise<{ success: boolean, 
 
     return async (eventId: number): Promise<{ success: boolean, message: string }> => {
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/event/${eventId}`, {
+            await axios.delete(`https://toogether.uno/api/event/${eventId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

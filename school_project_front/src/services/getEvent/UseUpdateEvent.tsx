@@ -10,7 +10,7 @@ const useUpdateEvent = () => {
             if (!eventId) {
                 return null;
             }
-            const response = await axios.patch(`http://127.0.0.1:8000/api/event/${eventId}`, {
+            const response = await axios.patch(`https://toogether.uno/api/event/${eventId}`, {
                 ...updatedEvent,
                 city: updatedEvent.city ? updatedEvent.city.id : null,
                 category: updatedEvent.category ? updatedEvent.category.id : null
