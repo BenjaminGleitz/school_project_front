@@ -1,0 +1,84 @@
+.event-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1em;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000;
+    color: #00385C;
+    height: 200px;
+    width: 80%;
+    background-size: cover;
+    background-position: center;
+}
+
+.event-card-main-info {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    height: 60%;
+    border-radius: 10px 10px 0 0;
+}
+
+.event-card-categorie {
+    margin: 20px 0 0 20px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #00385C;
+    box-shadow: 0 0 5px white;
+}
+
+.event-card-main-info p {
+    display: flex;
+    margin: 0;
+    color: white;
+    font-style: italic;
+}
+
+.event-card-details {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40%;
+    font-weight: bold;
+    color: #0F395A;
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+}
+
+.event-card-details-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: start;
+    margin-left: 10px;
+    width: 70%;
+    height: 100%;
+    font-size: 11px;
+}
+
+.event-card-details-user h2 {
+    text-decoration: underline;
+    margin: 0;
+}
+
+.event-card-details-user p {
+    margin: 0;
+}
+
+.event-card-details-location {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+    font-size: 11px;
+    margin-right: 10px;
+}
+
+.city-name {
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+}

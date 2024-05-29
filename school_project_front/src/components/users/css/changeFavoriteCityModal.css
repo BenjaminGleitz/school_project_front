@@ -1,0 +1,115 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-white {
+    background-color: #F5F6F6;
+    border-radius: 10px;
+    width: 300px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    color: white;
+}
+
+.modal-image {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../../assets/images/menu_transparent.png");
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.modal-content {
+    border-radius: 10px;
+    width: 80%;
+    height: 89%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    background-color: #0F395A;
+    padding: 10px;
+    color: white;
+}
+
+.modal-content select {
+    margin: 10px 0;
+    width: 160px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+    color: #0F395A;
+}
+
+.filter-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+.filters select, .filters input {
+    margin: 10px 0;
+    width: 160px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.filters input {
+    width: 150px;
+}
+
+button[type="button"] {
+    background-color: white;
+    border-radius: 35px;
+    color: #FC6E2B;
+    margin-top: 10px;
+}
+
+button[type="submit"] {
+    background-color: #FC6E2B;
+    border-radius: 35px;
+    color: white;
+    margin-top: 10px;
+}
+
+.registerSubmit:hover {
+    background-color: white;
+    color: #FC6E2B;
+    border: #FC6E2B 1px solid;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+}

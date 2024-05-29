@@ -1,0 +1,123 @@
+.profile-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #0F395A;
+}
+
+.profile-detail h1 {
+    font-size: 2.5em;
+    color: white;
+}
+
+.profile-container {
+    background-color: #F0F0F0;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 80px 10px 40px 10px;
+}
+
+.profile-items-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.profile-items-values_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-items-values_image {
+    border: #00385C 2px solid;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Pour que l'image s'ajuste bien dans le conteneur */
+    display: block; /* Assurez que l'image prend tout l'espace disponible */
+}
+
+.profile-items {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.profile-items div {
+    margin: 10px;
+}
+
+.profiles-items-values_header h3, .profile-items-values_description h3, .profile-items-values_events h3 {
+    margin-bottom: 0;
+    font-size: 1.5em;
+}
+
+.profiles-items-values_header p, .profile-items-values_description p, .profile-items-values_events p {
+    margin: 0;
+    color: #72848F;
+}
+
+.profile-items-values_header h3, .profile-items-values_header p {
+    margin: 0;
+}
+
+.profile-items-values_header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    font-size: 1.3em;
+}
+
+.profile-items-values_description {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: justify;
+}
+
+.profile-items-values_events {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.updateUserEvent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.profile-detail button {
+    background-color: #F0F0F0;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.profile-page {
+    height: 90%;
+    background-color: #00385C;
+    margin-top: -1px;
+}

@@ -1,8 +1,8 @@
 #root {
-  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  height: 100vh;
 }
 
 .logo {
@@ -39,4 +39,18 @@
 
 .read-the-docs {
   color: #888;
+}
+
+@font-face {
+  font-family: 'NeulisCursiveBlack';
+  src: url('./assets/fonts/fonts/fonnts.com-Neulis_Cursive_Medium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NeulisCursiveRegular';
+  src: url('./assets/fonts/fonts/fonnts.com-Neulis_Cursive_Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
