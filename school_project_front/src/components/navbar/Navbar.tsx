@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
         window.location.href = "/my-participation";
     };
 
-    const isProfilePage = location.pathname === "/profile";
+    const isProfilePage = location.pathname === "/profile" || location.pathname === "/profile/update";
 
     return (
         <nav className={`navbar ${isProfilePage ? 'navbar-profile' : ''}`}>

@@ -12,6 +12,7 @@ import User from "../../types/User";
 import { MdDateRange } from "react-icons/md";
 import { ImLocation } from "react-icons/im";
 import useDeleteOneEvent from "../../services/getEvent/UseDeleteOneEvent.tsx";
+import {useUser} from "../../contexts/UserContext.tsx";
 
 interface EventModalProps {
     eventId: number;
@@ -33,6 +34,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents 
     const { removeParticipantFromEvent } = useRemoveParticipantFromEvent();
     const getEventParticipants = useGetEventParticipants();
     const deleteOneEvent = useDeleteOneEvent();
+    const currentUser = useUser();
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -201,7 +203,12 @@ const EventModal: React.FC<EventModalProps> = ({ eventId, closeModal, setEvents 
                         </div>
                         <div className="eventDescription">
                             <div className={"eventInformations"}>
-                                <h2>{event.title}</h2>
+                                <div className="modal-items-values_image">
+                                    <h2>{event.title}</h2>
+                                    <img className={"profileImage"}
+                                         src={currentUser?.image ? `http://127.0.0.1:8000/images/users/${currentUser.image}` : "http://127.0.0.1:8000/images/users/default482835492874646298346429847642984.jpg"}
+                                         alt="User profile"/>
+                                </div>
                                 <p>{event.participant.length} out
                                     of {event.participantLimit !== null ? event.participantLimit : "unlimited"} participants</p>
                                 {isCreator && <p>You are the event's creator.</p>}

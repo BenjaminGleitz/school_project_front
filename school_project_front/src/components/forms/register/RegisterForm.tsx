@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import AuthService from "../../../services/authentication/AuthService.tsx";
-import useGetAllCountries from "../../../services/getCountry/UseGetAllCountries.tsx";
-import City from "../../../types/City.tsx";
+import AuthService from "../../../services/authentication/AuthService";
+import useGetAllCountries from "../../../services/getCountry/UseGetAllCountries";
+import City from "../../../types/City";
 import "./registerForm.css";
 
 interface RegisterFormProps {
@@ -18,6 +18,7 @@ interface FormErrors {
     nationality: string;
     birthdate: string;
     gender: string;
+    description: string;
     general?: string;
 }
 
@@ -29,6 +30,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ step, onNextStep }) => {
     const [nationality, setNationality] = useState("");
     const [birthdate, setBirthdate] = useState("");
     const [gender, setGender] = useState("");
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const [description, setDescription] = useState("");
     const { countries } = useGetAllCountries();
     const [selectedCountry, setSelectedCountry] = useState<number | "">("");
     const [selectedCity, setSelectedCity] = useState<City | null>(null);
@@ -40,15 +43,27 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ step, onNextStep }) => {
         selectedCountry: "",
         nationality: "",
         birthdate: "",
-        gender: ""
+        gender: "",
+        description: "",
     });
 
     const authService = AuthService.getInstance();
 
     const handleRegister = async () => {
         try {
-            await authService.register(username, password, firstname, lastname, selectedCity?.id || null, nationality, birthdate, gender);
-            console.log("User registered with data: ", { username, firstname, lastname, selectedCity, nationality, birthdate, gender });
+            await authService.register(
+                username,
+                password,
+                firstname,
+                lastname,
+                selectedCity?.id || null,
+                nationality,
+                birthdate,
+                gender,
+                imageFile,
+                description
+            );
+            console.log("User registered with data: ", { username, firstname, lastname, selectedCity, nationality, birthdate, gender, imageFile });
             window.location.href = "/login";
         } catch (error) {
             setErrors((prevErrors) => ({ ...prevErrors, general: "Erreur lors de l'inscription." }));
@@ -240,6 +255,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ step, onNextStep }) => {
                     <div className={"form-input-registerform"}>
                         <label>
                             <input
+                                placeholder={"Description :"}
+                                type="text"
+                                id="description"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
+                        </label>
+                    </div>
+                    <div className={"form-input-registerform"}>
+                        <label>
+                            <input
                                 placeholder={"Nationality :"}
                                 type="text"
                                 id="nationality"
@@ -300,6 +326,15 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ step, onNextStep }) => {
                             </label>
                         </div>
                         {errors.gender && <div className="invalid">{errors.gender}</div>}
+                    </div>
+                    <div className={"form-input-registerform"}>
+                        <label>
+                            <input
+                                type="file"
+                                id="imageFile"
+                                onChange={(e) => setImageFile(e.target.files ? e.target.files[0] : null)}
+                            />
+                        </label>
                     </div>
                     {errors.general && <div className="invalid">{errors.general}</div>}
                     <button className={'registerSubmit'} type="submit">Submit</button>

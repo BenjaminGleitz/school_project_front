@@ -14,8 +14,22 @@ class AuthService {
         return AuthService.instance;
     }
 
-    public register(email: string, password: string, firstname: string, lastname: string, favoriteCityId: number | null, nationality: string, birthdate: string, gender: string): Promise<void> {
-        console.log(favoriteCityId);
+    public register(email: string, password: string, firstname: string, lastname: string, favoriteCityId: number | null, nationality: string, birthdate: string, gender: string, imageFile: File | null, description: string): Promise<void> {
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('firstname', firstname);
+        formData.append('lastname', lastname);
+        formData.append('favoriteCity', favoriteCityId ? favoriteCityId.toString() : '');
+        formData.append('nationality', nationality);
+        formData.append('birthdate', birthdate);
+        formData.append('gender', gender);
+        formData.append('image', imageFile || '');
+        formData.append('description', description);
+        if (imageFile) {
+            formData.append('imageFile', imageFile);
+        }
+
         return axios
             .post("https://toogether.uno/userRegister", {
                 email: email,

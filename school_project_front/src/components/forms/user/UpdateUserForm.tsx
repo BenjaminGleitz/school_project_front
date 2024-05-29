@@ -12,19 +12,23 @@ interface FormErrors {
     lastname: string;
     selectedCountry: string;
     selectedCity: string;
+    image: string;
     general?: string;
 }
 
 const UpdateUserForm: React.FC = () => {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
+    const [image, setImage] = useState("");
+
     const [selectedCountry, setSelectedCountry] = useState<number | "">("");
     const [selectedCityObj, setSelectedCityObj] = useState<City | null>(null);
     const [errors, setErrors] = useState<FormErrors>({
         firstname: "",
         lastname: "",
         selectedCountry: "",
-        selectedCity: ""
+        selectedCity: "",
+        image: ""
     });
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // État pour gérer l'affichage du message de succès
     const updateUser = useUpdateConnectedUser();
@@ -37,6 +41,7 @@ const UpdateUserForm: React.FC = () => {
             setLastname(currentUser.lastname);
             setSelectedCountry(currentUser.favoriteCity?.country.id || "");
             setSelectedCityObj(currentUser.favoriteCity || null);
+            setImage(currentUser.image || "")
         }
     }, [currentUser]);
 
@@ -48,7 +53,8 @@ const UpdateUserForm: React.FC = () => {
             const updatedUserData: Partial<User> = {
                 firstname: firstname,
                 lastname: lastname,
-                favoriteCity: selectedCityObj
+                favoriteCity: selectedCityObj,
+                image: image
             };
 
             const updatedUser = await updateUser(updatedUserData);
@@ -63,6 +69,7 @@ const UpdateUserForm: React.FC = () => {
                     lastname: "",
                     selectedCountry: "",
                     selectedCity: "",
+                    image: "",
                     general: "Erreur lors de la mise à jour."
                 });
             }
@@ -73,25 +80,25 @@ const UpdateUserForm: React.FC = () => {
         const newErrors: FormErrors = {...errors};
 
         if (!firstname.trim()) {
-            newErrors.firstname = "Veuillez saisir votre prénom.";
+            newErrors.firstname = "Please enter your first name.";
         } else {
             newErrors.firstname = "";
         }
 
         if (!lastname.trim()) {
-            newErrors.lastname = "Veuillez saisir votre nom.";
+            newErrors.lastname = "Please enter your last name.";
         } else {
             newErrors.lastname = "";
         }
 
         if (!selectedCountry) {
-            newErrors.selectedCountry = "Veuillez sélectionner un pays.";
+            newErrors.selectedCountry = "Please select a country.";
         } else {
             newErrors.selectedCountry = "";
         }
 
         if (!selectedCityObj) {
-            newErrors.selectedCity = "Veuillez sélectionner une ville.";
+            newErrors.selectedCity = "Please select a city.";
         } else {
             newErrors.selectedCity = "";
         }
@@ -174,6 +181,16 @@ const UpdateUserForm: React.FC = () => {
                     {errors.selectedCity && <div>{errors.selectedCity}</div>}
                 </div>
             )}
+            <div className={"form-input"}>
+                <label htmlFor="image">Image :</label>
+                <input
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    onChange={(e) => setImage(e.target.value)}
+                />
+                {errors.image && <div>{errors.image}</div>}
+            </div>
             {errors.general && <div>{errors.general}</div>}
             <button type="submit">Update</button>
         </form>

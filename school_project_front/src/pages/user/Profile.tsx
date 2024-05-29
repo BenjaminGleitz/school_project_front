@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useUser } from '../../contexts/UserContext';
+import React, {useEffect, useState} from 'react';
+import {useLocation} from 'react-router-dom';
+import {useUser} from '../../contexts/UserContext';
 import Message from "../../components/messages/Message.tsx";
 import '../css/profile.css';
 import Loader from "../../components/loader/Loader.tsx";
+import { FaPen } from "react-icons/fa";
 
 const Profile: React.FC = () => {
     const currentUser = useUser();
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const location = useLocation();
+
+    console.log(currentUser);
 
     const goToMyEvents = () => {
         window.location.href = "/my-events";
@@ -54,13 +57,23 @@ const Profile: React.FC = () => {
                 <>
                     <div className="profile-container">
                         <div className="profile-items">
+                            <div className="profile-items-header">
+                                <div className="profile-items-values_image">
+                                    <img className={"profileImage"}
+                                         src={currentUser.image ? `http://127.0.0.1:8000/images/users/${currentUser.image}` : "http://127.0.0.1:8000/images/users/default482835492874646298346429847642984.jpg"}
+                                         alt="User profile"/>
+                                </div>
+                                <button className={"updateUserEvent"} onClick={() => window.location.href = "/profile/update"}><FaPen /></button>
+                            </div>
                             <div className="profile-items-values_header">
-                                <h3>{currentUser.firstname} {currentUser.lastname}, {calculateAge(currentUser.birthdate)} years</h3>
+                                <h3>{currentUser.firstname} {currentUser.lastname}, </h3>
+                                <p>{calculateAge(currentUser.birthdate)} years old</p>
                             </div>
-                            <div className="profile-items-values_description">
-                                <p>loremskqjd qlskd q kshd aje lk sd kasdioa u jk skdb sadyiudo is kdaj oiusa joiasd
-                                    iuasd jdal kjsa oudasd jlak sj</p>
-                            </div>
+                            {currentUser.description && (
+                                <div className="profile-items-values_description">
+                                    <p>{currentUser.description}</p>
+                                </div>
+                            )}
 
                             {/* cette div est cliquable (goToMyParticipations) et redirige vers la page de mes participations */}
                             <div className="profile-items-values_events" onClick={goToMyEvents}
